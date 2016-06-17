@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Akuan : 面白い人間になりたい">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>python&amp;R</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Liubj2016/Akuan">View on GitHub</a>
+
+          <h1 id="project_title">Akuan</h1>
+          <h2 id="project_tagline">面白い人間になりたい</h2>
+
+            
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+
+<div class="markdown-body">
+        <h1>
+<a id="user-content-数据形式转换" class="anchor" href="#%E6%95%B0%E6%8D%AE%E5%BD%A2%E5%BC%8F%E8%BD%AC%E6%8D%A2" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>数据形式转换</h1>
+
+<p>前段时间要做一个课程作业，需要用到各省的生产总值，<br>
+到国家统计局网站上下载的数据是这样的：</p>
+
+<table>
+<thead>
+<tr>
+<th>---</th>
+<th>2007</th>
+<th>2008</th>
+<th>2009</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>北京市</td>
+<td>342424.45</td>
+<td>843058.34</td>
+<td>……</td>
+</tr>
+<tr>
+<td>上海市</td>
+<td>343534.56</td>
+<td>435024.75</td>
+<td>……</td>
+</tr>
+<tr>
+<td>……</td>
+<td>……</td>
+<td>……</td>
+<td>……</td>
+</tr>
+</tbody>
+</table>
+
+<p>但是我需要的数据是这样的：</p>
+
+<table>
+<thead>
+<tr>
+<th>年份</th>
+<th>省份</th>
+<th>产值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2007</td>
+<td>北京市</td>
+<td>233333.33</td>
+</tr>
+<tr>
+<td>2008</td>
+<td>上海市</td>
+<td>233333.33</td>
+</tr>
+<tr>
+<td>……</td>
+<td>……</td>
+<td>……</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<p>用python的<code>pandas</code>包处理非常简单：</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">import</span> pandas <span class="pl-k">as</span> pd
+chengtou<span class="pl-k">=</span>pd.read_csv(<span class="pl-s"><span class="pl-pds">'</span>yuanshi.csv<span class="pl-pds">'</span></span>,<span class="pl-v">index_col</span><span class="pl-k">=</span><span class="pl-c1">0</span>,<span class="pl-v">encoding</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>gbk<span class="pl-pds">'</span></span>)
+f<span class="pl-k">=</span>chengtou.stack()
+f.to_csv(<span class="pl-s"><span class="pl-pds">'</span>test.csv<span class="pl-pds">'</span></span>,<span class="pl-v">encoding</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>gbk<span class="pl-pds">'</span></span>)</pre></div>
+
+      </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Akuan maintained by <a href="https://github.com/Liubj2016">Liubj2016</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
