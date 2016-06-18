@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Akuan : 面白い人間になりたい">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>python&amp;R</title>
+  </head>
+
+  <body>
+      <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Liubj2016/Akuan">View on GitHub</a>
+          <div class="clearfix">
+                <ul id="menu" class="drop">
+                    <li><a href="http://liubj2016.github.io/Akuan">Home</a></li>
+                </ul>
+            </div>
+
+          <h1 id="project_title">Akuan</h1>
+          <h2 id="project_tagline">面白い人間になりたい</h2>
+
+            
+        </header>
+    </div>
+
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<!-- 以上是需要的头 -->
+
+  
+
+
+
+
+  <div id="wiki-body" class="wiki-body gollum-markdown-content instapaper_body">
+      <div class="markdown-body">
+        <p>写论文需要数据，但是和讯网并没有提供数据的下载，所以就想着自己写个爬虫，以来看看自己能不能搞定这个爬虫，二来可以拿到数据。<br>
+话不多说，先来理下思路：</p>
+
+<h2>
+<a id="user-content-思路" class="anchor" href="#%E6%80%9D%E8%B7%AF" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>思路</h2>
+
+<p><img src="images/1.png" alt="image"></p>
+
+<p>这里面有261只债券，总共6页。最开始我是准备就爬这个页面的，但是发现提供的数据不够，点进去一只：</p>
+
+<p><img src="images/2.png" alt="image"></p>
+
+<p>这才是我想要的。<br>
+所以现在就有了一个大致的思路：<br>
+1. 先爬第一个网页，取得所有城投债的链接；<br>
+2. 再解析每个网页，取得数据。</p>
+
+<h2>
+<a id="user-content-获得链接" class="anchor" href="#%E8%8E%B7%E5%BE%97%E9%93%BE%E6%8E%A5" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>获得链接</h2>
+
+<p>打开网页，右键&gt;检查：</p>
+
+<p><img src="images/3.png" alt="image"></p>
+
+<p>链接就藏在a标签里面了，下面是代码：</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">def</span> <span class="pl-en">get_lianjie</span>(<span class="pl-smi">url</span>):
+    <span class="pl-c">#定义一个函数</span>
+    page_source<span class="pl-k">=</span>requests.get(url).content
+    bs_source<span class="pl-k">=</span>BeautifulSoup(page_source,<span class="pl-s"><span class="pl-pds">'</span>lxml<span class="pl-pds">'</span></span>)
+    bs_source2<span class="pl-k">=</span>BeautifulSoup(<span class="pl-c1">str</span>(bs_source.find_all(<span class="pl-s"><span class="pl-pds">'</span>tr<span class="pl-pds">'</span></span>)),<span class="pl-s"><span class="pl-pds">'</span>lxml<span class="pl-pds">'</span></span>)
+    report_text<span class="pl-k">=</span>bs_source2.find_all(<span class="pl-s"><span class="pl-pds">'</span>a<span class="pl-pds">'</span></span>,<span class="pl-v">href</span><span class="pl-k">=</span><span class="pl-c1">True</span>)
+    <span class="pl-c">#用beautifulsoup解析网页</span>
+    lianjie<span class="pl-k">=</span>[]
+    <span class="pl-k">for</span> a <span class="pl-k">in</span> report_text:
+        lianjie.append(a[<span class="pl-s"><span class="pl-pds">'</span>href<span class="pl-pds">'</span></span>])
+
+    lianjie<span class="pl-k">=</span><span class="pl-c1">list</span>(<span class="pl-c1">set</span>(lianjie))
+    <span class="pl-c">#去掉重复的</span>
+    <span class="pl-k">return</span> lianjie</pre></div>
+
+<h2>
+<a id="user-content-获取表" class="anchor" href="#%E8%8E%B7%E5%8F%96%E8%A1%A8" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>获取表</h2>
+
+<p>接下来就是要获取每个链接里的数据了，还是要先分析网页，找到需要的数据在哪里，<br>
+代码如下：</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">def</span> <span class="pl-en">get_biao</span>(<span class="pl-smi">url</span>):
+    http<span class="pl-k">=</span>urllib3.PoolManager()
+    <span class="pl-c">#不用这个好像网页会加载不完全，具体什么意思我也不懂。。</span>
+    page_source<span class="pl-k">=</span>http.request(<span class="pl-s"><span class="pl-pds">'</span>GET<span class="pl-pds">'</span></span>,url).data
+    soup <span class="pl-k">=</span> BeautifulSoup(page_source,<span class="pl-s"><span class="pl-pds">'</span>lxml<span class="pl-pds">'</span></span>)
+    text <span class="pl-k">=</span> soup.find_all(<span class="pl-s"><span class="pl-pds">'</span>tr<span class="pl-pds">'</span></span>,<span class="pl-v">align</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>center<span class="pl-pds">"</span></span>)
+    soup2<span class="pl-k">=</span>BeautifulSoup(<span class="pl-c1">str</span>(text),<span class="pl-s"><span class="pl-pds">'</span>lxml<span class="pl-pds">'</span></span> )
+    a<span class="pl-k">=</span>soup2.find_all(<span class="pl-s"><span class="pl-pds">'</span>td<span class="pl-pds">'</span></span>)
+    <span class="pl-c">#还是用beautifulsoup包解析网页</span>
+
+    <span class="pl-c">#然后将获取的数据做成dataframe</span>
+    index<span class="pl-k">=</span>[]
+    iterm<span class="pl-k">=</span>[]
+    <span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(<span class="pl-c1">0</span>,<span class="pl-c1">len</span>(a)):
+        <span class="pl-k">if</span> i<span class="pl-k">%</span><span class="pl-c1">2</span><span class="pl-k">==</span><span class="pl-c1">0</span>:
+            index.append(<span class="pl-c1">str</span>(a[i].get_text()).decode(<span class="pl-s"><span class="pl-pds">'</span>unicode_escape<span class="pl-pds">'</span></span>).encode(<span class="pl-s"><span class="pl-pds">'</span>utf-8<span class="pl-pds">'</span></span>))
+        <span class="pl-k">else</span>:
+            iterm.append(<span class="pl-c1">str</span>(a[i].get_text()).decode(<span class="pl-s"><span class="pl-pds">'</span>unicode_escape<span class="pl-pds">'</span></span>).encode(<span class="pl-s"><span class="pl-pds">'</span>utf-8<span class="pl-pds">'</span></span>))
+
+    biao<span class="pl-k">=</span>DataFrame(iterm,<span class="pl-v">index</span><span class="pl-k">=</span>index)
+    <span class="pl-k">return</span> biao</pre></div>
+
+<h2>
+<a id="user-content-合并数据" class="anchor" href="#%E5%90%88%E5%B9%B6%E6%95%B0%E6%8D%AE" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>合并数据</h2>
+
+<p>到这一步就很简单了，因为表都是DataFrame格式，代码如下：</p>
+
+<div class="highlight highlight-source-python"><pre>data<span class="pl-k">=</span>pd.concat(biao,<span class="pl-v">axis</span><span class="pl-k">=</span><span class="pl-c1">1</span>)
+data<span class="pl-k">=</span>pd.DataFrame(data)
+data.to_csv(<span class="pl-s"><span class="pl-pds">'</span>data.csv<span class="pl-pds">'</span></span>,<span class="pl-v">encoding</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>gbk<span class="pl-pds">'</span></span>)<span class="pl-c">#注意编码，不然会乱码</span></pre></div>
+
+<p>至此这个爬虫就差不多完成了，但是有个问题，就是：很！慢！<br>
+我点击运行，过了十几分钟才出结果，所以得用多线程优化一下，<br>
+下面是完整代码：</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">import</span> requests
+<span class="pl-k">from</span> bs4 <span class="pl-k">import</span> BeautifulSoup
+<span class="pl-k">import</span> urllib3
+<span class="pl-k">from</span> pandas <span class="pl-k">import</span> DataFrame
+<span class="pl-k">import</span> pandas <span class="pl-k">as</span> pd
+<span class="pl-k">import</span> threading
+<span class="pl-c">#加载所要用的包</span>
+
+<span class="pl-k">def</span> <span class="pl-en">get_lianjie</span>(<span class="pl-smi">url</span>):
+    page_source<span class="pl-k">=</span>requests.get(url).content
+    bs_source<span class="pl-k">=</span>BeautifulSoup(page_source,<span class="pl-s"><span class="pl-pds">'</span>lxml<span class="pl-pds">'</span></span>)
+    bs_source2<span class="pl-k">=</span>BeautifulSoup(<span class="pl-c1">str</span>(bs_source.find_all(<span class="pl-s"><span class="pl-pds">'</span>tr<span class="pl-pds">'</span></span>)),<span class="pl-s"><span class="pl-pds">'</span>lxml<span class="pl-pds">'</span></span>)
+    report_text<span class="pl-k">=</span>bs_source2.find_all(<span class="pl-s"><span class="pl-pds">'</span>a<span class="pl-pds">'</span></span>,<span class="pl-v">href</span><span class="pl-k">=</span><span class="pl-c1">True</span>)
+    lianjie<span class="pl-k">=</span>[]
+    <span class="pl-k">for</span> a <span class="pl-k">in</span> report_text:
+        lianjie.append(a[<span class="pl-s"><span class="pl-pds">'</span>href<span class="pl-pds">'</span></span>])
+
+    lianjie<span class="pl-k">=</span><span class="pl-c1">list</span>(<span class="pl-c1">set</span>(lianjie))
+    <span class="pl-k">return</span> lianjie
+
+<span class="pl-k">def</span> <span class="pl-en">get_biao</span>(<span class="pl-smi">url</span>):
+    http<span class="pl-k">=</span>urllib3.PoolManager()
+    page_source<span class="pl-k">=</span>http.request(<span class="pl-s"><span class="pl-pds">'</span>GET<span class="pl-pds">'</span></span>,url).data
+    soup <span class="pl-k">=</span> BeautifulSoup(page_source,<span class="pl-s"><span class="pl-pds">'</span>lxml<span class="pl-pds">'</span></span>)
+    text <span class="pl-k">=</span> soup.find_all(<span class="pl-s"><span class="pl-pds">'</span>tr<span class="pl-pds">'</span></span>,<span class="pl-v">align</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>center<span class="pl-pds">"</span></span>)
+    soup2<span class="pl-k">=</span>BeautifulSoup(<span class="pl-c1">str</span>(text),<span class="pl-s"><span class="pl-pds">'</span>lxml<span class="pl-pds">'</span></span> )
+    a<span class="pl-k">=</span>soup2.find_all(<span class="pl-s"><span class="pl-pds">'</span>td<span class="pl-pds">'</span></span>)
+
+    index<span class="pl-k">=</span>[]
+    iterm<span class="pl-k">=</span>[]
+    <span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(<span class="pl-c1">0</span>,<span class="pl-c1">len</span>(a)):
+        <span class="pl-k">if</span> i<span class="pl-k">%</span><span class="pl-c1">2</span><span class="pl-k">==</span><span class="pl-c1">0</span>:
+            index.append(<span class="pl-c1">str</span>(a[i].get_text()).decode(<span class="pl-s"><span class="pl-pds">'</span>unicode_escape<span class="pl-pds">'</span></span>).encode(<span class="pl-s"><span class="pl-pds">'</span>utf-8<span class="pl-pds">'</span></span>))
+        <span class="pl-k">else</span>:
+            iterm.append(<span class="pl-c1">str</span>(a[i].get_text()).decode(<span class="pl-s"><span class="pl-pds">'</span>unicode_escape<span class="pl-pds">'</span></span>).encode(<span class="pl-s"><span class="pl-pds">'</span>utf-8<span class="pl-pds">'</span></span>))
+
+    biao<span class="pl-k">=</span>DataFrame(iterm,<span class="pl-v">index</span><span class="pl-k">=</span>index)
+    <span class="pl-k">return</span> biao
+
+<span class="pl-c">#获取全部261个链接</span>
+lianjie<span class="pl-k">=</span>[]
+<span class="pl-k">for</span> page <span class="pl-k">in</span> <span class="pl-c1">range</span>(<span class="pl-c1">1</span>,<span class="pl-c1">7</span>):
+    url<span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>http://so.hexun.com/list.do?type=ALL&amp;stype=BOND&amp;key=%B3%C7%CD%B6%D5%AE&amp;page=<span class="pl-c1">{0<span class="pl-c1">:d</span>}</span><span class="pl-pds">'</span></span>.format(page)
+    page_lianjie<span class="pl-k">=</span>get_lianjie(url)
+    lianjie.extend(page_lianjie)
+
+<span class="pl-c">#获取所有的表</span>
+biao<span class="pl-k">=</span>[]
+<span class="pl-k">def</span> <span class="pl-en">one</span>(<span class="pl-smi">url</span>):
+    page_biao <span class="pl-k">=</span> get_biao(url)
+    biao.append(page_biao)
+    <span class="pl-k">return</span>
+
+<span class="pl-c">#多线程    </span>
+threadlist<span class="pl-k">=</span>[]
+<span class="pl-k">for</span> url <span class="pl-k">in</span> lianjie:
+    t<span class="pl-k">=</span>threading.Thread(<span class="pl-v">target</span><span class="pl-k">=</span>one,<span class="pl-v">args</span><span class="pl-k">=</span>(url,))
+    t.start()
+    threadlist.append(t)
+<span class="pl-k">for</span> t <span class="pl-k">in</span> threadlist:
+    t.join()
+
+<span class="pl-c">#最后导出数据</span>
+data<span class="pl-k">=</span>pd.concat(biao,<span class="pl-v">axis</span><span class="pl-k">=</span><span class="pl-c1">1</span>)
+data<span class="pl-k">=</span>pd.DataFrame(data)
+data.to_csv(<span class="pl-s"><span class="pl-pds">'</span>data.csv<span class="pl-pds">'</span></span>,<span class="pl-v">encoding</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>gbk<span class="pl-pds">'</span></span>)</pre></div>
+
+<p>最终效果：</p>
+
+<p><img src="images/4.png" alt="image"></p>
+
+      </div>
+
+    
+  </div>
+  </div>
+</div>
+
+
+<!-- 以下是需要的尾 -->
+
+
+<hr>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Akuan maintained by <a href="https://github.com/Liubj2016">Liubj2016</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>   
+
+  </body>
+</html>
