@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Akuan : 面白い人間になりたい">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>learn</title>
+  </head>
+
+  <body>
+      <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Liubj2016/Akuan">View on GitHub</a>
+          <div class="clearfix">
+                <ul id="menu" class="drop">
+                    <li><a href="http://liubj2016.github.io/Akuan">Home</a></li>
+                </ul>
+            </div>
+
+          <h1 id="project_title">Akuan</h1>
+          <h2 id="project_tagline">面白い人間になりたい</h2>
+
+            
+        </header>
+    </div>
+
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<!-- 以上是需要的头 -->
+
+<div class="preview-content">
+    <div class="comment-body js-comment-body js-preview-body" style="min-height: 390px;"><div class="markdown-body">
+  <h1>
+<a id="user-content-project-1" class="anchor" href="#project-1" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Project 1</h1>
+
+<h2>
+<a id="user-content-a" class="anchor" href="#a" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>a</strong>
+</h2>
+
+<p>计算苹果股票1980年至今的平均年收益率和年波动率，收益率为 <strong>0.1534</strong>，波动率为 <strong>0.4782</strong> 。代码如下：</p>
+
+<div class="highlight highlight-source-matlab"><pre>P1=<span class="pl-k">log</span>(P);  <span class="pl-c">%P是调整后的股票价格，P1是对数价格</span>
+R=-<span class="pl-k">diff</span>(P1,<span class="pl-c1">1</span>);
+aR=<span class="pl-c1">252</span>*<span class="pl-k">mean</span>(R);
+<span class="pl-c1">sigma</span>=<span class="pl-k">sqrt</span>(<span class="pl-k">var</span>(R)*<span class="pl-c1">252</span>);</pre></div>
+
+<h2>
+<a id="user-content-b" class="anchor" href="#b" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>b</strong>
+</h2>
+
+<p>用三叉树计算欧式期权的价格，代码如下：</p>
+
+<div class="highlight highlight-source-matlab"><pre><span class="pl-k">function</span> [<span class="pl-v">C</span>,<span class="pl-v">P</span>]=<span class="pl-en">Etrimi</span>(<span class="pl-v">N</span>)
+s0=<span class="pl-c1">99.62</span>;
+k=<span class="pl-c1">100</span>;
+<span class="pl-c1">sigma</span>=<span class="pl-c1">0.4782</span>;
+r=<span class="pl-c1">0.0185</span>;
+T=<span class="pl-c1">0.2322</span>;
+dt=T/N;
+
+m=<span class="pl-c1">1</span>;
+u=<span class="pl-k">exp</span>(<span class="pl-c1">sigma</span>*<span class="pl-k">sqrt</span>(<span class="pl-c1">2</span>*dt));
+d=<span class="pl-c1">1</span>/u;
+
+pu=((<span class="pl-k">sqrt</span>(<span class="pl-k">exp</span>(r*dt))-<span class="pl-k">sqrt</span>(d))/(<span class="pl-k">sqrt</span>(u)-<span class="pl-k">sqrt</span>(d)))^2;
+pd=((<span class="pl-k">sqrt</span>(u)-<span class="pl-k">sqrt</span>(<span class="pl-k">exp</span>(r*dt)))/(<span class="pl-k">sqrt</span>(u)-<span class="pl-k">sqrt</span>(d)))^2;
+pm=<span class="pl-c1">1</span>-pu-pd;
+
+c=<span class="pl-c1">0</span>;
+p=<span class="pl-c1">0</span>;
+<span class="pl-k">for</span> <span class="pl-k">i</span> =<span class="pl-c1">0</span>:N
+    <span class="pl-k">for</span> <span class="pl-k">j</span>=<span class="pl-c1">0</span>:N-<span class="pl-k">i</span>
+        s=s0*u^<span class="pl-k">i</span>*d^<span class="pl-k">j</span>;
+        c=c+<span class="pl-k">max</span>((s-k),<span class="pl-c1">0</span>)*pu^<span class="pl-k">i</span>*<span class="pl-k">nchoosek</span>(N,<span class="pl-k">i</span>)*pd^<span class="pl-k">j</span>*<span class="pl-k">nchoosek</span>(N-<span class="pl-k">i</span>,<span class="pl-k">j</span>)*pm^(N-<span class="pl-k">i</span>-<span class="pl-k">j</span>);
+        p=p+<span class="pl-k">max</span>(-(s-k),<span class="pl-c1">0</span>)*pu^<span class="pl-k">i</span>*<span class="pl-k">nchoosek</span>(N,<span class="pl-k">i</span>)*pd^<span class="pl-k">j</span>*<span class="pl-k">nchoosek</span>(N-<span class="pl-k">i</span>,<span class="pl-k">j</span>)*pm^(N-<span class="pl-k">i</span>-<span class="pl-k">j</span>);
+    <span class="pl-k">end</span>
+<span class="pl-k">end</span>
+
+C=c*<span class="pl-k">exp</span>(-r*T);
+P=p*<span class="pl-k">exp</span>(-r*T);
+</pre></div>
+
+<h2>
+<a id="user-content-c" class="anchor" href="#c" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>c</strong>
+</h2>
+
+<p><img src="images/5.png" alt="image"></p>
+
+<p><strong>精确度</strong>：由上表可知，三叉树在N=40的时候，得到的结果与bls公式的结果相比，误差仅为0.01左右。<br>
+<strong>效率</strong>：通过多次运行程序，观察得，当N小于100时，运行效率较高；N大于100时，程序效率明显下降。</p>
+
+<h2>
+<a id="user-content-d" class="anchor" href="#d" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>d</strong>
+</h2>
+
+<p><img src="images/5.png" alt="image"></p>
+
+<p><strong>精确度</strong>：由上表可知，在N较小的情况下，三叉树的精确度更高，但随着N的增大，两者精确度变得很接近。<br>
+<strong>效率</strong>：当N较小的时候，运行时间二叉树与三叉树的差距不大；但N大于100时，二叉树快许多。</p>
+
+<h2>
+<a id="user-content-e" class="anchor" href="#e" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>e</strong>
+</h2>
+
+<p>期权（看涨）的市场价格为4.50，而程序运行结果为9.16左右。同时B-S公式计算价格也与三叉树计算价格相近，而这两种方式计算的都是期权的真实价值，并不是计算的整个路径。市场期权价格在任一时刻是随机的，但最终期权的市场价值会回归真实价值。
+   对于如何提升价格的准确性，<strong>一</strong>、标的资产市场价格可能不服从对数正态分布，为了针对尖峰厚尾性，很多文献中采用的是Beta分布；<br>
+   <strong>二</strong>、该三叉树模型基于二叉树模型，模型的不准确性可能是由于u、d设置的不合理导致的。</p>
+
+<h2>
+<a id="user-content-f" class="anchor" href="#f" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>f</strong>
+</h2>
+
+<p>三叉树计算美式期权，代码如下：</p>
+
+<div class="highlight highlight-source-matlab"><pre><span class="pl-k">function</span> [<span class="pl-v">C</span>,<span class="pl-v">P</span>]=<span class="pl-en">AmericanTT</span>(<span class="pl-v">N</span>)
+S0=<span class="pl-c1">100</span>;
+K=<span class="pl-c1">100</span>;
+r=<span class="pl-c1">0.05</span>;
+T=<span class="pl-c1">1</span>;
+<span class="pl-c1">sigma</span>=<span class="pl-c1">0.3</span>;
+dt=T/N;
+u=<span class="pl-k">exp</span>(<span class="pl-c1">sigma</span>*<span class="pl-k">sqrt</span>(<span class="pl-c1">2</span>*dt));
+m=<span class="pl-c1">1</span>;
+d=<span class="pl-c1">1</span>/u;
+
+p1=((<span class="pl-k">exp</span>(<span class="pl-c1">0.5</span>*r*dt)-d^0.5)/(u^0.5-d^0.5))^2;
+p3=((u^0.5-<span class="pl-k">exp</span>(<span class="pl-c1">0.5</span>*r*dt))/(u^0.5-d^0.5))^2;
+p2=<span class="pl-c1">1</span>-p1-p3;
+
+S=[];
+S(<span class="pl-c1">1</span>,<span class="pl-c1">1</span>)=S0;
+INCOME_C=[];
+INCOME_C(<span class="pl-c1">1</span>,<span class="pl-c1">1</span>)=<span class="pl-c1">0</span>;
+INCOME_P=[];
+INCOME_P(<span class="pl-c1">1</span>,<span class="pl-c1">1</span>)=<span class="pl-c1">0</span>;
+
+<span class="pl-k">for</span> <span class="pl-k">i</span>=<span class="pl-c1">2</span>:N+<span class="pl-c1">1</span>
+    <span class="pl-k">for</span> <span class="pl-k">j</span>=<span class="pl-c1">0</span>:<span class="pl-k">i</span>-<span class="pl-c1">1</span>
+        <span class="pl-k">for</span> t=<span class="pl-c1">0</span>:<span class="pl-k">i</span>-<span class="pl-k">j</span>-<span class="pl-c1">1</span>
+            S(<span class="pl-k">i</span>,<span class="pl-c1">2</span>*t+<span class="pl-k">j</span>+<span class="pl-c1">1</span>)=S0*d^t*m^<span class="pl-k">j</span>*u^(<span class="pl-k">i</span>-<span class="pl-c1">1</span>-t-<span class="pl-k">j</span>);
+            INCOME_C(<span class="pl-k">i</span>,<span class="pl-c1">2</span>*t+<span class="pl-k">j</span>+<span class="pl-c1">1</span>)=<span class="pl-k">max</span>(S(<span class="pl-k">i</span>,<span class="pl-c1">2</span>*t+<span class="pl-k">j</span>+<span class="pl-c1">1</span>)-K,<span class="pl-c1">0</span>);
+            INCOME_P(<span class="pl-k">i</span>,<span class="pl-c1">2</span>*t+<span class="pl-k">j</span>+<span class="pl-c1">1</span>)=<span class="pl-k">max</span>(K-S(<span class="pl-k">i</span>,<span class="pl-c1">2</span>*t+<span class="pl-k">j</span>+<span class="pl-c1">1</span>),<span class="pl-c1">0</span>);
+        <span class="pl-k">end</span>
+    <span class="pl-k">end</span>
+<span class="pl-k">end</span>
+
+F_C=[];
+F_P=[];
+
+F_C(N+<span class="pl-c1">1</span>,:)=INCOME_C(N+<span class="pl-c1">1</span>,:);
+F_P(N+<span class="pl-c1">1</span>,:)=INCOME_C(N+<span class="pl-c1">1</span>,:);
+
+<span class="pl-k">for</span> <span class="pl-k">i</span>=N:(-<span class="pl-c1">1</span>):<span class="pl-c1">1</span>
+    <span class="pl-k">for</span> <span class="pl-k">j</span>=<span class="pl-c1">1</span>:<span class="pl-c1">2</span>*(<span class="pl-k">i</span>-<span class="pl-c1">1</span>)+<span class="pl-c1">1</span>
+        F_C(<span class="pl-k">i</span>,<span class="pl-k">j</span>)=(p1*F_C(<span class="pl-k">i</span>+<span class="pl-c1">1</span>,<span class="pl-k">j</span>)+p2*F_C(<span class="pl-k">i</span>+<span class="pl-c1">1</span>,<span class="pl-k">j</span>+<span class="pl-c1">1</span>)+p3*F_C(<span class="pl-k">i</span>+<span class="pl-c1">1</span>,<span class="pl-k">j</span>+<span class="pl-c1">2</span>))*<span class="pl-k">exp</span>(-r*dt);
+        F_C(<span class="pl-k">i</span>,<span class="pl-k">j</span>)=<span class="pl-k">max</span>(F_C(<span class="pl-k">i</span>,<span class="pl-k">j</span>),INCOME_C(<span class="pl-k">i</span>,<span class="pl-k">j</span>));
+        F_P(<span class="pl-k">i</span>,<span class="pl-k">j</span>)=(p1*F_P(<span class="pl-k">i</span>+<span class="pl-c1">1</span>,<span class="pl-k">j</span>)+p2*F_P(<span class="pl-k">i</span>+<span class="pl-c1">1</span>,<span class="pl-k">j</span>+<span class="pl-c1">1</span>)+p3*F_P(<span class="pl-k">i</span>+<span class="pl-c1">1</span>,<span class="pl-k">j</span>+<span class="pl-c1">2</span>))*<span class="pl-k">exp</span>(-r*dt);
+        F_P(<span class="pl-k">i</span>,<span class="pl-k">j</span>)=<span class="pl-k">max</span>(F_P(<span class="pl-k">i</span>,<span class="pl-k">j</span>),INCOME_P(<span class="pl-k">i</span>,<span class="pl-k">j</span>));
+    <span class="pl-k">end</span>
+<span class="pl-k">end</span>
+
+C=F_C(<span class="pl-c1">1</span>,<span class="pl-c1">1</span>);
+P=F_P(<span class="pl-c1">1</span>,<span class="pl-c1">1</span>);</pre></div>
+
+<h2>
+<a id="user-content-g" class="anchor" href="#g" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a><strong>g</strong>
+</h2>
+
+<p>用二叉树计算障碍期权，代码如下：</p>
+
+<div class="highlight highlight-source-matlab"><pre><span class="pl-k">function</span> [<span class="pl-v">C</span>,<span class="pl-v">P</span>]=<span class="pl-en">barrier</span>(<span class="pl-v">B</span>,<span class="pl-v">N</span>)
+s0=<span class="pl-c1">100</span>;
+k=<span class="pl-c1">100</span>;
+<span class="pl-c1">sigma</span>=<span class="pl-c1">0.4</span>;
+r=<span class="pl-c1">0.05</span>;
+T=<span class="pl-c1">1</span>;
+dt=T/N;
+
+u=<span class="pl-k">exp</span>(<span class="pl-c1">sigma</span>*<span class="pl-k">sqrt</span>(dt));
+d=<span class="pl-c1">1</span>/u;
+
+pu=(<span class="pl-k">exp</span>(r*dt)-d)/(u-d);
+pd=(u-<span class="pl-k">exp</span>(r*dt))/(u-d);
+
+m=<span class="pl-k">ceil</span>(<span class="pl-k">log</span>(B/s0)/<span class="pl-k">log</span>(u));
+
+c=[];
+p=[];
+s=[];
+A=[];
+s(<span class="pl-c1">1</span>)=s0*u^N;
+c(<span class="pl-c1">1</span>)=<span class="pl-k">max</span>(s(<span class="pl-c1">1</span>)-k,<span class="pl-c1">0</span>)*pu^N;
+A(<span class="pl-c1">1</span>)=<span class="pl-c1">1</span>;
+<span class="pl-k">for</span> <span class="pl-k">i</span> =<span class="pl-c1">2</span>:N+<span class="pl-c1">1</span>
+    s(<span class="pl-k">i</span>)=s0*d^(<span class="pl-k">i</span>-<span class="pl-c1">1</span>)*u^(N-<span class="pl-k">i</span>+<span class="pl-c1">1</span>);
+    U=[];
+    <span class="pl-k">for</span> <span class="pl-k">j</span>=<span class="pl-c1">1</span>:<span class="pl-k">i</span>
+        U(<span class="pl-k">j</span>)=N+<span class="pl-c1">2</span>-<span class="pl-k">i</span>-<span class="pl-k">j</span>;
+        <span class="pl-k">if</span> <span class="pl-k">j</span>&gt;=<span class="pl-c1">2</span>
+            <span class="pl-k">for</span> t=<span class="pl-c1">1</span>:<span class="pl-k">j</span>-<span class="pl-c1">1</span>
+                <span class="pl-k">if</span> U(t)&gt;=m <span class="pl-k">&amp;&amp;</span> U(t+<span class="pl-c1">1</span>)&lt;m
+                    <span class="pl-k">if</span> N+<span class="pl-c1">2</span>-<span class="pl-k">i</span>-<span class="pl-k">j</span>&gt;=<span class="pl-c1">0</span>
+                        A(<span class="pl-k">i</span>)=<span class="pl-k">nchoosek</span>(N+<span class="pl-c1">2</span>-<span class="pl-k">i</span>-<span class="pl-k">j</span>+t-<span class="pl-c1">1</span>,t-<span class="pl-c1">1</span>);
+                        <span class="pl-k">break</span>
+                    <span class="pl-k">else</span>
+                        A(<span class="pl-k">i</span>)=<span class="pl-c1">0</span>;
+                    <span class="pl-k">end</span>
+                <span class="pl-k">else</span>
+                    A(<span class="pl-k">i</span>)=<span class="pl-k">nchoosek</span>(N,N+<span class="pl-c1">1</span>-<span class="pl-k">i</span>);
+                <span class="pl-k">end</span>
+            <span class="pl-k">end</span>
+        <span class="pl-k">else</span>
+            A(<span class="pl-k">i</span>)=<span class="pl-c1">0</span>;
+        <span class="pl-k">end</span>
+    <span class="pl-k">end</span>
+    c(<span class="pl-k">i</span>)=<span class="pl-k">max</span>((s(<span class="pl-k">i</span>)-k),<span class="pl-c1">0</span>)*pu^(N+<span class="pl-c1">1</span>-<span class="pl-k">i</span>)*A(<span class="pl-k">i</span>)*pd^(<span class="pl-k">i</span>-<span class="pl-c1">1</span>);
+    p(<span class="pl-k">i</span>)=<span class="pl-k">max</span>(-(s(<span class="pl-k">i</span>)-k),<span class="pl-c1">0</span>)*pu^(N+<span class="pl-c1">1</span>-<span class="pl-k">i</span>)*A(<span class="pl-k">i</span>)*pd^(<span class="pl-k">i</span>-<span class="pl-c1">1</span>);
+<span class="pl-k">end</span>
+
+C=<span class="pl-k">sum</span>(c)*<span class="pl-k">exp</span>(-r*T);
+P=<span class="pl-k">sum</span>(p)*<span class="pl-k">exp</span>(-r*T);</pre></div>
+
+</div>
+</div>
+  </div>
+
+  <!-- 以下是需要的尾 -->
+
+
+<hr>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Akuan maintained by <a href="https://github.com/Liubj2016">Liubj2016</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>   
+
+  </body>
+</html>
