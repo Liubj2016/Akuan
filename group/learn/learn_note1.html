@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Akuan : 面白い人間になりたい">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>learn</title>
+  </head>
+
+  <body>
+      <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Liubj2016/Akuan">View on GitHub</a>
+          <div class="clearfix">
+                <ul id="menu" class="drop">
+                    <li><a href="http://liubj2016.github.io/Akuan">Home</a></li>
+                </ul>
+            </div>
+
+          <h1 id="project_title">Akuan</h1>
+          <h2 id="project_tagline">面白い人間になりたい</h2>
+
+            
+        </header>
+    </div>
+
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<!-- 以上是需要的头 -->
+
+
+<div class="preview-content">
+    <div class="comment-body js-comment-body js-preview-body" style="min-height: 390px;"><div class="markdown-body">
+  <h1>
+<a id="user-content-scikit-learn线性和二次判别分析" class="anchor" href="#scikit-learn%E7%BA%BF%E6%80%A7%E5%92%8C%E4%BA%8C%E6%AC%A1%E5%88%A4%E5%88%AB%E5%88%86%E6%9E%90" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>scikit-learn线性和二次判别分析</h1>
+
+<p>线性判别分析和二次判别分析是两个经典的分类器，就像他们的名字所表示的一样，一个是用线划分，另一个是二次判别面来划分。<br>
+这些分类器很好用，因为他们的封闭解法很容易计算，并且他们天生就可以用于多个类。他们在实践中表现得很好并且没有要调整的超参数。</p>
+
+<p><img src="images/1.png" alt="image"></p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-c1">print</span>(<span class="pl-c1">__doc__</span>)
+
+<span class="pl-k">from</span> scipy <span class="pl-k">import</span> linalg
+<span class="pl-k">import</span> numpy <span class="pl-k">as</span> np
+<span class="pl-k">import</span> matplotlib.pyplot <span class="pl-k">as</span> plt
+<span class="pl-k">import</span> matplotlib <span class="pl-k">as</span> mpl
+<span class="pl-k">from</span> matplotlib <span class="pl-k">import</span> colors
+<span class="pl-k">%</span>matplotlib inline
+
+<span class="pl-k">from</span> sklearn.discriminant_analysis <span class="pl-k">import</span> LinearDiscriminantAnalysis
+<span class="pl-k">from</span> sklearn.discriminant_analysis <span class="pl-k">import</span> QuadraticDiscriminantAnalysis
+
+<span class="pl-c">###############################################################################</span>
+<span class="pl-c"># colormap</span>
+cmap <span class="pl-k">=</span> colors.LinearSegmentedColormap(
+    <span class="pl-s"><span class="pl-pds">'</span>red_blue_classes<span class="pl-pds">'</span></span>,
+    {<span class="pl-s"><span class="pl-pds">'</span>red<span class="pl-pds">'</span></span>: [(<span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>), (<span class="pl-c1">1</span>, <span class="pl-c1">0.7</span>, <span class="pl-c1">0.7</span>)],
+     <span class="pl-s"><span class="pl-pds">'</span>green<span class="pl-pds">'</span></span>: [(<span class="pl-c1">0</span>, <span class="pl-c1">0.7</span>, <span class="pl-c1">0.7</span>), (<span class="pl-c1">1</span>, <span class="pl-c1">0.7</span>, <span class="pl-c1">0.7</span>)],
+     <span class="pl-s"><span class="pl-pds">'</span>blue<span class="pl-pds">'</span></span>: [(<span class="pl-c1">0</span>, <span class="pl-c1">0.7</span>, <span class="pl-c1">0.7</span>), (<span class="pl-c1">1</span>, <span class="pl-c1">1</span>, <span class="pl-c1">1</span>)]})
+plt.cm.register_cmap(<span class="pl-v">cmap</span><span class="pl-k">=</span>cmap)
+<span class="pl-k">def</span> <span class="pl-en">dataset_fixed_cov</span>():
+    <span class="pl-s"><span class="pl-pds">'''</span>Generate 2 Gaussians samples with the same covariance matrix<span class="pl-pds">'''</span></span>
+    n, dim <span class="pl-k">=</span> <span class="pl-c1">300</span>, <span class="pl-c1">2</span>
+    np.random.seed(<span class="pl-c1">0</span>)
+    <span class="pl-c1">C</span> <span class="pl-k">=</span> np.array([[<span class="pl-c1">0</span>., <span class="pl-k">-</span><span class="pl-c1">0.23</span>], [<span class="pl-c1">0.83</span>, <span class="pl-c1">.23</span>]])
+    <span class="pl-c1">X</span> <span class="pl-k">=</span> np.r_[np.dot(np.random.randn(n, dim), <span class="pl-c1">C</span>),
+              np.dot(np.random.randn(n, dim), <span class="pl-c1">C</span>) <span class="pl-k">+</span> np.array([<span class="pl-c1">1</span>, <span class="pl-c1">1</span>])]
+    y <span class="pl-k">=</span> np.hstack((np.zeros(n), np.ones(n)))
+    <span class="pl-k">return</span> <span class="pl-c1">X</span>, y
+
+
+<span class="pl-k">def</span> <span class="pl-en">dataset_cov</span>():
+    <span class="pl-s"><span class="pl-pds">'''</span>Generate 2 Gaussians samples with different covariance matrices<span class="pl-pds">'''</span></span>
+    n, dim <span class="pl-k">=</span> <span class="pl-c1">300</span>, <span class="pl-c1">2</span>
+    np.random.seed(<span class="pl-c1">0</span>)
+    <span class="pl-c1">C</span> <span class="pl-k">=</span> np.array([[<span class="pl-c1">0</span>., <span class="pl-k">-</span><span class="pl-c1">1</span>.], [<span class="pl-c1">2.5</span>, <span class="pl-c1">.7</span>]]) <span class="pl-k">*</span> <span class="pl-c1">2</span>.
+    <span class="pl-c1">X</span> <span class="pl-k">=</span> np.r_[np.dot(np.random.randn(n, dim), <span class="pl-c1">C</span>),
+              np.dot(np.random.randn(n, dim), <span class="pl-c1">C</span>.<span class="pl-c1">T</span>) <span class="pl-k">+</span> np.array([<span class="pl-c1">1</span>, <span class="pl-c1">4</span>])]
+    y <span class="pl-k">=</span> np.hstack((np.zeros(n), np.ones(n)))
+    <span class="pl-k">return</span> <span class="pl-c1">X</span>, y
+
+
+<span class="pl-c">###############################################################################</span>
+<span class="pl-c"># plot functions</span>
+<span class="pl-k">def</span> <span class="pl-en">plot_data</span>(<span class="pl-smi">lda</span>, <span class="pl-smi">X</span>, <span class="pl-smi">y</span>, <span class="pl-smi">y_pred</span>, <span class="pl-smi">fig_index</span>):
+    splot <span class="pl-k">=</span> plt.subplot(<span class="pl-c1">2</span>, <span class="pl-c1">2</span>, fig_index)
+    <span class="pl-k">if</span> fig_index <span class="pl-k">==</span> <span class="pl-c1">1</span>:
+        plt.title(<span class="pl-s"><span class="pl-pds">'</span>Linear Discriminant Analysis<span class="pl-pds">'</span></span>)
+        plt.ylabel(<span class="pl-s"><span class="pl-pds">'</span>Data with fixed covariance<span class="pl-pds">'</span></span>)
+    <span class="pl-k">elif</span> fig_index <span class="pl-k">==</span> <span class="pl-c1">2</span>:
+        plt.title(<span class="pl-s"><span class="pl-pds">'</span>Quadratic Discriminant Analysis<span class="pl-pds">'</span></span>)
+    <span class="pl-k">elif</span> fig_index <span class="pl-k">==</span> <span class="pl-c1">3</span>:
+        plt.ylabel(<span class="pl-s"><span class="pl-pds">'</span>Data with varying covariances<span class="pl-pds">'</span></span>)
+
+    tp <span class="pl-k">=</span> (y <span class="pl-k">==</span> y_pred)  <span class="pl-c"># True Positive</span>
+    tp0, tp1 <span class="pl-k">=</span> tp[y <span class="pl-k">==</span> <span class="pl-c1">0</span>], tp[y <span class="pl-k">==</span> <span class="pl-c1">1</span>]
+    <span class="pl-c1">X0</span>, <span class="pl-c1">X1</span> <span class="pl-k">=</span> <span class="pl-c1">X</span>[y <span class="pl-k">==</span> <span class="pl-c1">0</span>], <span class="pl-c1">X</span>[y <span class="pl-k">==</span> <span class="pl-c1">1</span>]
+    <span class="pl-c1">X0_tp</span>, <span class="pl-c1">X0_fp</span> <span class="pl-k">=</span> <span class="pl-c1">X0</span>[tp0], <span class="pl-c1">X0</span>[<span class="pl-k">~</span>tp0]
+    <span class="pl-c1">X1_tp</span>, <span class="pl-c1">X1_fp</span> <span class="pl-k">=</span> <span class="pl-c1">X1</span>[tp1], <span class="pl-c1">X1</span>[<span class="pl-k">~</span>tp1]
+
+    <span class="pl-c"># class 0: dots</span>
+    plt.plot(<span class="pl-c1">X0_tp</span>[:, <span class="pl-c1">0</span>], <span class="pl-c1">X0_tp</span>[:, <span class="pl-c1">1</span>], <span class="pl-s"><span class="pl-pds">'</span>o<span class="pl-pds">'</span></span>, <span class="pl-v">color</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>red<span class="pl-pds">'</span></span>)
+    plt.plot(<span class="pl-c1">X0_fp</span>[:, <span class="pl-c1">0</span>], <span class="pl-c1">X0_fp</span>[:, <span class="pl-c1">1</span>], <span class="pl-s"><span class="pl-pds">'</span>.<span class="pl-pds">'</span></span>, <span class="pl-v">color</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>#990000<span class="pl-pds">'</span></span>)  <span class="pl-c"># dark red</span>
+
+    <span class="pl-c"># class 1: dots</span>
+    plt.plot(<span class="pl-c1">X1_tp</span>[:, <span class="pl-c1">0</span>], <span class="pl-c1">X1_tp</span>[:, <span class="pl-c1">1</span>], <span class="pl-s"><span class="pl-pds">'</span>o<span class="pl-pds">'</span></span>, <span class="pl-v">color</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>blue<span class="pl-pds">'</span></span>)
+    plt.plot(<span class="pl-c1">X1_fp</span>[:, <span class="pl-c1">0</span>], <span class="pl-c1">X1_fp</span>[:, <span class="pl-c1">1</span>], <span class="pl-s"><span class="pl-pds">'</span>.<span class="pl-pds">'</span></span>, <span class="pl-v">color</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>#000099<span class="pl-pds">'</span></span>)  <span class="pl-c"># dark blue</span>
+
+    <span class="pl-c"># class 0 and 1 : areas</span>
+    nx, ny <span class="pl-k">=</span> <span class="pl-c1">200</span>, <span class="pl-c1">100</span>
+    x_min, x_max <span class="pl-k">=</span> plt.xlim()
+    y_min, y_max <span class="pl-k">=</span> plt.ylim()
+    xx, yy <span class="pl-k">=</span> np.meshgrid(np.linspace(x_min, x_max, nx),
+                         np.linspace(y_min, y_max, ny))
+    <span class="pl-c1">Z</span> <span class="pl-k">=</span> lda.predict_proba(np.c_[xx.ravel(), yy.ravel()])
+    <span class="pl-c1">Z</span> <span class="pl-k">=</span> <span class="pl-c1">Z</span>[:, <span class="pl-c1">1</span>].reshape(xx.shape)
+    plt.pcolormesh(xx, yy, <span class="pl-c1">Z</span>, <span class="pl-v">cmap</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>red_blue_classes<span class="pl-pds">'</span></span>,
+                   <span class="pl-v">norm</span><span class="pl-k">=</span>colors.Normalize(<span class="pl-c1">0</span>., <span class="pl-c1">1</span>.))
+    plt.contour(xx, yy, <span class="pl-c1">Z</span>, [<span class="pl-c1">0.5</span>], <span class="pl-v">linewidths</span><span class="pl-k">=</span><span class="pl-c1">2</span>., <span class="pl-v">colors</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>k<span class="pl-pds">'</span></span>)
+
+    <span class="pl-c"># means</span>
+    plt.plot(lda.means_[<span class="pl-c1">0</span>][<span class="pl-c1">0</span>], lda.means_[<span class="pl-c1">0</span>][<span class="pl-c1">1</span>],
+             <span class="pl-s"><span class="pl-pds">'</span>o<span class="pl-pds">'</span></span>, <span class="pl-v">color</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>black<span class="pl-pds">'</span></span>, <span class="pl-v">markersize</span><span class="pl-k">=</span><span class="pl-c1">10</span>)
+    plt.plot(lda.means_[<span class="pl-c1">1</span>][<span class="pl-c1">0</span>], lda.means_[<span class="pl-c1">1</span>][<span class="pl-c1">1</span>],
+             <span class="pl-s"><span class="pl-pds">'</span>o<span class="pl-pds">'</span></span>, <span class="pl-v">color</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>black<span class="pl-pds">'</span></span>, <span class="pl-v">markersize</span><span class="pl-k">=</span><span class="pl-c1">10</span>)
+
+    <span class="pl-k">return</span> splot
+
+
+<span class="pl-k">def</span> <span class="pl-en">plot_ellipse</span>(<span class="pl-smi">splot</span>, <span class="pl-smi">mean</span>, <span class="pl-smi">cov</span>, <span class="pl-smi">color</span>):
+    v, w <span class="pl-k">=</span> linalg.eigh(cov)
+    u <span class="pl-k">=</span> w[<span class="pl-c1">0</span>] <span class="pl-k">/</span> linalg.norm(w[<span class="pl-c1">0</span>])
+    angle <span class="pl-k">=</span> np.arctan(u[<span class="pl-c1">1</span>] <span class="pl-k">/</span> u[<span class="pl-c1">0</span>])
+    angle <span class="pl-k">=</span> <span class="pl-c1">180</span> <span class="pl-k">*</span> angle <span class="pl-k">/</span> np.pi  <span class="pl-c"># convert to degrees</span>
+    <span class="pl-c"># filled Gaussian at 2 standard deviation</span>
+    ell <span class="pl-k">=</span> mpl.patches.Ellipse(mean, <span class="pl-c1">2</span> <span class="pl-k">*</span> v[<span class="pl-c1">0</span>] <span class="pl-k">**</span> <span class="pl-c1">0.5</span>, <span class="pl-c1">2</span> <span class="pl-k">*</span> v[<span class="pl-c1">1</span>] <span class="pl-k">**</span> <span class="pl-c1">0.5</span>,
+                              <span class="pl-c1">180</span> <span class="pl-k">+</span> angle, <span class="pl-v">color</span><span class="pl-k">=</span>color)
+    ell.set_clip_box(splot.bbox)
+    ell.set_alpha(<span class="pl-c1">0.5</span>)
+    splot.add_artist(ell)
+    splot.set_xticks(())
+    splot.set_yticks(())
+
+
+<span class="pl-k">def</span> <span class="pl-en">plot_lda_cov</span>(<span class="pl-smi">lda</span>, <span class="pl-smi">splot</span>):
+    plot_ellipse(splot, lda.means_[<span class="pl-c1">0</span>], lda.covariance_, <span class="pl-s"><span class="pl-pds">'</span>red<span class="pl-pds">'</span></span>)
+    plot_ellipse(splot, lda.means_[<span class="pl-c1">1</span>], lda.covariance_, <span class="pl-s"><span class="pl-pds">'</span>blue<span class="pl-pds">'</span></span>)
+
+
+<span class="pl-k">def</span> <span class="pl-en">plot_qda_cov</span>(<span class="pl-smi">qda</span>, <span class="pl-smi">splot</span>):
+    plot_ellipse(splot, qda.means_[<span class="pl-c1">0</span>], qda.covariances_[<span class="pl-c1">0</span>], <span class="pl-s"><span class="pl-pds">'</span>red<span class="pl-pds">'</span></span>)
+    plot_ellipse(splot, qda.means_[<span class="pl-c1">1</span>], qda.covariances_[<span class="pl-c1">1</span>], <span class="pl-s"><span class="pl-pds">'</span>blue<span class="pl-pds">'</span></span>)
+
+<span class="pl-c">###############################################################################</span>
+<span class="pl-k">for</span> i, (<span class="pl-c1">X</span>, y) <span class="pl-k">in</span> <span class="pl-c1">enumerate</span>([dataset_fixed_cov(), dataset_cov()]):
+    <span class="pl-c"># Linear Discriminant Analysis</span>
+    lda <span class="pl-k">=</span> LinearDiscriminantAnalysis(<span class="pl-v">solver</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>svd<span class="pl-pds">"</span></span>, <span class="pl-v">store_covariance</span><span class="pl-k">=</span><span class="pl-c1">True</span>)
+    y_pred <span class="pl-k">=</span> lda.fit(<span class="pl-c1">X</span>, y).predict(<span class="pl-c1">X</span>)
+    splot <span class="pl-k">=</span> plot_data(lda, <span class="pl-c1">X</span>, y, y_pred, <span class="pl-v">fig_index</span><span class="pl-k">=</span><span class="pl-c1">2</span> <span class="pl-k">*</span> i <span class="pl-k">+</span> <span class="pl-c1">1</span>)
+    plot_lda_cov(lda, splot)
+    plt.axis(<span class="pl-s"><span class="pl-pds">'</span>tight<span class="pl-pds">'</span></span>)
+
+    <span class="pl-c"># Quadratic Discriminant Analysis</span>
+    qda <span class="pl-k">=</span> QuadraticDiscriminantAnalysis(<span class="pl-v">store_covariances</span><span class="pl-k">=</span><span class="pl-c1">True</span>)
+    y_pred <span class="pl-k">=</span> qda.fit(<span class="pl-c1">X</span>, y).predict(<span class="pl-c1">X</span>)
+    splot <span class="pl-k">=</span> plot_data(qda, <span class="pl-c1">X</span>, y, y_pred, <span class="pl-v">fig_index</span><span class="pl-k">=</span><span class="pl-c1">2</span> <span class="pl-k">*</span> i <span class="pl-k">+</span> <span class="pl-c1">2</span>)
+    plot_qda_cov(qda, splot)
+    plt.axis(<span class="pl-s"><span class="pl-pds">'</span>tight<span class="pl-pds">'</span></span>)
+plt.suptitle(<span class="pl-s"><span class="pl-pds">'</span>Linear Discriminant Analysis vs Quadratic Discriminant Analysis<span class="pl-pds">'</span></span>)
+plt.show()
+</pre></div>
+
+<p>图上展示了线性判别和二次判别的分类边界，最下面的一行图显示，线性判别只能找到线性的分界线，而二次判别可以找到两条分界线，因此更为灵活。</p>
+
+<h2>
+<a id="user-content-用线性判别分析来降维" class="anchor" href="#%E7%94%A8%E7%BA%BF%E6%80%A7%E5%88%A4%E5%88%AB%E5%88%86%E6%9E%90%E6%9D%A5%E9%99%8D%E7%BB%B4" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>用线性判别分析来降维</h2>
+
+<p>线性判别分析可用于监督学习的降维，通过将数据映射到一个能最大限度分类的有方向的子空间来实现。输出的维度必然比类别数目小，因此这是一个一般意义上相当强悍的降维方法，并且只有在存在多个类时有用。  </p>
+
+<p>下面是比较线性判别分析和主成分分析的降维作用的例子。</p>
+
+<p><img src="images/2.png" alt="image"></p>
+
+<p><img src="images/3.png" alt="image"></p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-c1">print</span>(<span class="pl-c1">__doc__</span>)
+
+<span class="pl-k">import</span> matplotlib.pyplot <span class="pl-k">as</span> plt
+
+<span class="pl-k">from</span> sklearn <span class="pl-k">import</span> datasets
+<span class="pl-k">from</span> sklearn.decomposition <span class="pl-k">import</span> <span class="pl-c1">PCA</span>
+<span class="pl-k">from</span> sklearn.discriminant_analysis <span class="pl-k">import</span> LinearDiscriminantAnalysis
+<span class="pl-k">%</span>matplotlib inline
+
+iris <span class="pl-k">=</span> datasets.load_iris()
+
+<span class="pl-c1">X</span> <span class="pl-k">=</span> iris.data
+y <span class="pl-k">=</span> iris.target
+target_names <span class="pl-k">=</span> iris.target_names
+
+pca <span class="pl-k">=</span> PCA(<span class="pl-v">n_components</span><span class="pl-k">=</span><span class="pl-c1">2</span>)
+<span class="pl-c1">X_r</span> <span class="pl-k">=</span> pca.fit(<span class="pl-c1">X</span>).transform(<span class="pl-c1">X</span>)
+
+lda <span class="pl-k">=</span> LinearDiscriminantAnalysis(<span class="pl-v">n_components</span><span class="pl-k">=</span><span class="pl-c1">2</span>)
+<span class="pl-c1">X_r2</span> <span class="pl-k">=</span> lda.fit(<span class="pl-c1">X</span>, y).transform(<span class="pl-c1">X</span>)
+
+<span class="pl-c"># Percentage of variance explained for each components</span>
+<span class="pl-c1">print</span>(<span class="pl-s"><span class="pl-pds">'</span>explained variance ratio (first two components): <span class="pl-c1">%s</span><span class="pl-pds">'</span></span>
+      <span class="pl-k">%</span> <span class="pl-c1">str</span>(pca.explained_variance_ratio_))
+
+plt.figure()
+<span class="pl-k">for</span> c, i, target_name <span class="pl-k">in</span> <span class="pl-c1">zip</span>(<span class="pl-s"><span class="pl-pds">"</span>rgb<span class="pl-pds">"</span></span>, [<span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>], target_names):
+    plt.scatter(<span class="pl-c1">X_r</span>[y <span class="pl-k">==</span> i, <span class="pl-c1">0</span>], <span class="pl-c1">X_r</span>[y <span class="pl-k">==</span> i, <span class="pl-c1">1</span>], <span class="pl-v">c</span><span class="pl-k">=</span>c, <span class="pl-v">label</span><span class="pl-k">=</span>target_name)
+plt.legend()
+plt.title(<span class="pl-s"><span class="pl-pds">'</span>PCA of IRIS dataset<span class="pl-pds">'</span></span>)
+
+plt.figure()
+<span class="pl-k">for</span> c, i, target_name <span class="pl-k">in</span> <span class="pl-c1">zip</span>(<span class="pl-s"><span class="pl-pds">"</span>rgb<span class="pl-pds">"</span></span>, [<span class="pl-c1">0</span>, <span class="pl-c1">1</span>, <span class="pl-c1">2</span>], target_names):
+    plt.scatter(<span class="pl-c1">X_r2</span>[y <span class="pl-k">==</span> i, <span class="pl-c1">0</span>], <span class="pl-c1">X_r2</span>[y <span class="pl-k">==</span> i, <span class="pl-c1">1</span>], <span class="pl-v">c</span><span class="pl-k">=</span>c, <span class="pl-v">label</span><span class="pl-k">=</span>target_name)
+plt.legend()
+plt.title(<span class="pl-s"><span class="pl-pds">'</span>LDA of IRIS dataset<span class="pl-pds">'</span></span>)
+
+plt.show()
+</pre></div>
+
+<p>LDA和QDA都可以由简单的概率模型衍生出来，对于每个k都满足条件概率分布 P(X|y=k) 。可以通过贝叶斯公式来得到预测。
+P(y=k | X) = P(X | y=k) P(y=k)}/P(X) = P(X | y=k) P(y = k)/ P(X | y=l)/P(y=l)}并且我们选择能最大化这个条件概率的k。
+    特别的，在线性和二次判别分析中， P(X|y)是服从多远高斯分布的，概率密度如下：</p>
+
+<pre lang="math"><code>p(X | y=k) = \frac{1}{(2\pi)^n |\Sigma_k|^{1/2}}\exp\left(-\frac{1}{2} (X-\mu_k)^t \Sigma_k^{-1} (X-\mu_k)\right)
+</code></pre>
+
+<p>为了将这个模型用于分类器，我们只需要从训练数据集中估计出类的优先级 P(y=k)（k出现的比例），和类的均值 （由经验样本法），和协方差矩阵（即不是通过经验样本法，也不是正则估计法，看下一节的缩减）。
+       在LDA的情形下，假定每个类都满足相同的协方差矩阵，这导致了线性的决策面，通过比较 log-probability比率可以看出来。
+       而在QDA的情形下，没有这个假设，使得出现二次的决策面。</p>
+
+<h2>
+<a id="user-content-lda降维的数学公式" class="anchor" href="#lda%E9%99%8D%E7%BB%B4%E7%9A%84%E6%95%B0%E5%AD%A6%E5%85%AC%E5%BC%8F" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>LDA降维的数学公式</h2>
+
+<p>从上面讲到的LDA分类规则的几何重构来开始有助于理解LDA降维。我们用K表示类的个数，因为我们假定所有的类有相同的协方差矩阵，我们可以调整数据使其协方差为定值。</p>
+
+<pre lang="math"><code>X^* = D^{-1/2}U^t X\text{ with }\Sigma = UDU^t
+</code></pre>
+
+<p>然后我们可以证明，在降维之后分类，相当于找到欧式距离离数据点最近的均值。但是这个结果同样也可以在讲数据映射到有所有类均值构建的子空间H_K上得到。这说明，在LDA分类器的内部，可以通过将数据映射到K-1维的子空间上来降维。
+    我们可以选择一个L通过将数据映射到 线性子空间H_L 来更进一步的降维，这个子空间使得所有类均值的方差最大。</p>
+
+<h2>
+<a id="user-content-缩减" class="anchor" href="#%E7%BC%A9%E5%87%8F" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>缩减</h2>
+
+<p>当数据的个数比特征还要少的时候，缩减就是可以用来提升协方差矩阵估计的工具。这种情形下，经验样本估计是不好的估计值。
+shrinkage参数也可以手动设置在0到1之间，特别的，0表示不缩减，1表示完全缩减。将值设定在这两个极端值之间将会得到一个缩减之后的协方差矩阵。</p>
+
+<p><img src="iamges/4.png" alt="image"></p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">from</span> __future__ <span class="pl-k">import</span> division
+
+<span class="pl-k">import</span> numpy <span class="pl-k">as</span> np
+<span class="pl-k">import</span> matplotlib.pyplot <span class="pl-k">as</span> plt
+
+<span class="pl-k">from</span> sklearn.datasets <span class="pl-k">import</span> make_blobs
+<span class="pl-k">from</span> sklearn.discriminant_analysis <span class="pl-k">import</span> LinearDiscriminantAnalysis
+<span class="pl-k">%</span>matplotlib inline
+
+
+n_train <span class="pl-k">=</span> <span class="pl-c1">20</span>  <span class="pl-c"># samples for training</span>
+n_test <span class="pl-k">=</span> <span class="pl-c1">200</span>  <span class="pl-c"># samples for testing</span>
+n_averages <span class="pl-k">=</span> <span class="pl-c1">50</span>  <span class="pl-c"># how often to repeat classification</span>
+n_features_max <span class="pl-k">=</span> <span class="pl-c1">75</span>  <span class="pl-c"># maximum number of features</span>
+step <span class="pl-k">=</span> <span class="pl-c1">4</span>  <span class="pl-c"># step size for the calculation</span>
+
+
+<span class="pl-k">def</span> <span class="pl-en">generate_data</span>(<span class="pl-smi">n_samples</span>, <span class="pl-smi">n_features</span>):
+    <span class="pl-s"><span class="pl-pds">"""</span>Generate random blob-ish data with noisy features.</span>
+<span class="pl-s"></span>
+<span class="pl-s">    This returns an array of input data with shape `(n_samples, n_features)`</span>
+<span class="pl-s">    and an array of `n_samples` target labels.</span>
+<span class="pl-s"></span>
+<span class="pl-s">    Only one feature contains discriminative information, the other features</span>
+<span class="pl-s">    contain only noise.</span>
+<span class="pl-s">    <span class="pl-pds">"""</span></span>
+    <span class="pl-c1">X</span>, y <span class="pl-k">=</span> make_blobs(<span class="pl-v">n_samples</span><span class="pl-k">=</span>n_samples, <span class="pl-v">n_features</span><span class="pl-k">=</span><span class="pl-c1">1</span>, <span class="pl-v">centers</span><span class="pl-k">=</span>[[<span class="pl-k">-</span><span class="pl-c1">2</span>], [<span class="pl-c1">2</span>]])
+
+    <span class="pl-c"># add non-discriminative features</span>
+    <span class="pl-k">if</span> n_features <span class="pl-k">&gt;</span> <span class="pl-c1">1</span>:
+        <span class="pl-c1">X</span> <span class="pl-k">=</span> np.hstack([<span class="pl-c1">X</span>, np.random.randn(n_samples, n_features <span class="pl-k">-</span> <span class="pl-c1">1</span>)])
+    <span class="pl-k">return</span> <span class="pl-c1">X</span>, y
+
+acc_clf1, acc_clf2 <span class="pl-k">=</span> [], []
+n_features_range <span class="pl-k">=</span> <span class="pl-c1">range</span>(<span class="pl-c1">1</span>, n_features_max <span class="pl-k">+</span> <span class="pl-c1">1</span>, step)
+<span class="pl-k">for</span> n_features <span class="pl-k">in</span> n_features_range:
+    score_clf1, score_clf2 <span class="pl-k">=</span> <span class="pl-c1">0</span>, <span class="pl-c1">0</span>
+    <span class="pl-k">for</span> _ <span class="pl-k">in</span> <span class="pl-c1">range</span>(n_averages):
+        <span class="pl-c1">X</span>, y <span class="pl-k">=</span> generate_data(n_train, n_features)
+
+        clf1 <span class="pl-k">=</span> LinearDiscriminantAnalysis(<span class="pl-v">solver</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>lsqr<span class="pl-pds">'</span></span>, <span class="pl-v">shrinkage</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>auto<span class="pl-pds">'</span></span>).fit(<span class="pl-c1">X</span>, y)
+        clf2 <span class="pl-k">=</span> LinearDiscriminantAnalysis(<span class="pl-v">solver</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>lsqr<span class="pl-pds">'</span></span>, <span class="pl-v">shrinkage</span><span class="pl-k">=</span><span class="pl-c1">None</span>).fit(<span class="pl-c1">X</span>, y)
+
+        <span class="pl-c1">X</span>, y <span class="pl-k">=</span> generate_data(n_test, n_features)
+        score_clf1 <span class="pl-k">+=</span> clf1.score(<span class="pl-c1">X</span>, y)
+        score_clf2 <span class="pl-k">+=</span> clf2.score(<span class="pl-c1">X</span>, y)
+
+    acc_clf1.append(score_clf1 <span class="pl-k">/</span> n_averages)
+    acc_clf2.append(score_clf2 <span class="pl-k">/</span> n_averages)
+
+features_samples_ratio <span class="pl-k">=</span> np.array(n_features_range) <span class="pl-k">/</span> n_train
+
+plt.plot(features_samples_ratio, acc_clf1, <span class="pl-v">linewidth</span><span class="pl-k">=</span><span class="pl-c1">2</span>,
+         <span class="pl-v">label</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Linear Discriminant Analysis with shrinkage<span class="pl-pds">"</span></span>, <span class="pl-v">color</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>r<span class="pl-pds">'</span></span>)
+plt.plot(features_samples_ratio, acc_clf2, <span class="pl-v">linewidth</span><span class="pl-k">=</span><span class="pl-c1">2</span>,
+         <span class="pl-v">label</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Linear Discriminant Analysis<span class="pl-pds">"</span></span>, <span class="pl-v">color</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>g<span class="pl-pds">'</span></span>)
+
+plt.xlabel(<span class="pl-s"><span class="pl-pds">'</span>n_features / n_samples<span class="pl-pds">'</span></span>)
+plt.ylabel(<span class="pl-s"><span class="pl-pds">'</span>Classification accuracy<span class="pl-pds">'</span></span>)
+
+plt.legend(<span class="pl-v">loc</span><span class="pl-k">=</span><span class="pl-c1">1</span>, <span class="pl-v">prop</span><span class="pl-k">=</span>{<span class="pl-s"><span class="pl-pds">'</span>size<span class="pl-pds">'</span></span>: <span class="pl-c1">12</span>})
+plt.suptitle(<span class="pl-s"><span class="pl-pds">'</span>Linear Discriminant Analysis vs. <span class="pl-c1">\</span></span>
+<span class="pl-s">shrinkage Linear Discriminant Analysis (1 discriminative feature)<span class="pl-pds">'</span></span>)
+plt.show()</pre></div>
+
+<h2>
+<a id="user-content-估计算法" class="anchor" href="#%E4%BC%B0%E8%AE%A1%E7%AE%97%E6%B3%95" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>估计算法</h2>
+
+<p>默认求解是‘svd’，它可以用来分类和转换，并且不依赖与协方差矩阵的计算，这在特征很多的情况下是一个优点，但是，‘svd’解法并不能用于缩减。
+‘lsqr’解法是只能用于分类的高效算法，它支持缩减。
+‘eigen’基于类的分散与分散程度间的最优化，它能应用于分类和转换，并且支持缩减，但是它需要计算协方差矩阵，因此它可能不适合特征很多的情况。</p>
+
+</div>
+</div>
+  </div>
+
+
+
+  <!-- 以下是需要的尾 -->
+
+
+<hr>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Akuan maintained by <a href="https://github.com/Liubj2016">Liubj2016</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>   
+
+  </body>
+</html>
