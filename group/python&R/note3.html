@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Akuan : 面白い人間になりたい">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>python&amp;R</title>
+  </head>
+
+  <body>
+      <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Liubj2016/Akuan">View on GitHub</a>
+          <div class="clearfix">
+                <ul id="menu" class="drop">
+                    <li><a href="http://liubj2016.github.io/Akuan">Home</a></li>
+                </ul>
+            </div>
+
+          <h1 id="project_title">Akuan</h1>
+          <h2 id="project_tagline">面白い人間になりたい</h2>
+
+            
+        </header>
+    </div>
+
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<!-- 以上是需要的头 -->
+
+
+
+<div class="markdown-body">
+  <h1>
+<a id="user-content-shiny-app的网页分享" class="anchor" href="#shiny-app%E7%9A%84%E7%BD%91%E9%A1%B5%E5%88%86%E4%BA%AB" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>shiny app的网页分享</h1>
+
+<blockquote>
+<p>A web application framework for R<br>
+Turn your analyses into interactive web applications<br>
+No HTML, CSS, or JavaScript knowledge required</p>
+</blockquote>
+
+<p>在这之前，需要先知道<code>shiny</code>是什么，以上是官网介绍，你不需要Html,css和js的知识也能够实现强大的交互式数据可视化。那么如何将自己制作的app分享给电脑上没有R的人呢？请看：</p>
+
+<blockquote>
+<p><strong>Share as a web page</strong>  </p>
+
+<p>All of the above methods share the same limitation. They require your user to have R and Shiny installed on their computer.  </p>
+
+<p>However, Shiny creates the perfect opportunity to share output with people who do not have R (and have no intention of getting it). Your Shiny app happens to be one of the most widely used communication tools in the world: a web page. If you host the app at its own URL, users can visit the app (and not need to worry about code).</p>
+
+<p>If you are familiar with web hosting or have access to an IT department, you can host your Shiny apps yourself.</p>
+
+<p>If you’d prefer an easier experience or need support, RStudio offers three ways to host your Shiny app as a web page:</p>
+
+<p>1.Shinyapps.io.<br>
+2.Shiny Server, and<br>
+3.Shiny Server Pro</p>
+</blockquote>
+
+<p>以上是官方的文档，介绍了三种方法来实现shiny app的网页化，这里我选择第一种：<a href="http://shinyapps.io/">shinyapps.io</a></p>
+
+<p>注册网站后登陆（我用的是github账号登陆），就进入了教程页面。</p>
+
+<blockquote>
+<p>STEP 1 – INSTALL RSCONNECT<br>
+The <code>rsconnect</code> package can be installed directly from CRAN. To make sure you have the latest version run following code in your R console:</p>
+</blockquote>
+
+<div class="highlight highlight-source-r"><pre>install.packages(<span class="pl-s"><span class="pl-pds">'</span>rsconnect<span class="pl-pds">'</span></span>)</pre></div>
+
+<p>首先是安装这个包，不多说。</p>
+
+<blockquote>
+<p>STEP 2 – AUTHORIZE ACCOUNT<br>
+The <code>rsconnect</code> package must be authorized to your account using a token and secret. To do this, click the copy button below and we'll copy the whole command you need to your clipboard. Just paste it into your console to authorize your account. Once you've entered the command successfully in R, that computer is now authorized to deploy applications to your shinyapps.io account.</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-e">rsconnect</span><span class="pl-k">::</span>setAccountInfo(<span class="pl-v">name</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>akuan<span class="pl-pds">'</span></span>,
+              <span class="pl-v">token</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>**************<span class="pl-pds">'</span></span>,
+              <span class="pl-v">secret</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>&lt;SECRET&gt;<span class="pl-pds">'</span></span>)</pre></div>
+</blockquote>
+
+<p>安装完包之后就是配置账户，非常简单，只要将网页上的代码粘贴到R命令行回车运行就可以了。</p>
+
+<blockquote>
+<p>STEP 3 – DEPLOY<br>
+Once the <code>rsconnect</code> package has been configured, you're ready to deploy your first application. If you haven't written any applications yet, you can also checkout the Getting Started Guide for instructions on how to deploy our demo application. Run the following code in your R console.</p>
+</blockquote>
+
+<div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">rsconnect</span>)
+<span class="pl-e">rsconnect</span><span class="pl-k">::</span>deployApp(<span class="pl-s"><span class="pl-pds">'</span>path/to/your/app<span class="pl-pds">'</span></span>)</pre></div>
+
+<p>如果上一步没有报错，就可以用上面的代码来发布自己的app了。</p>
+
+<p>我自己试了一下：</p>
+
+<p><img src="images/5.png" alt="image"></p>
+
+<p>成功！
+<a href="https://akuan.shinyapps.io/stockVis/">点这里</a></p>
+
+<p>当然在这之前你需要先会用<code>shiny</code>，这里是<a href="http://shiny.rstudio.com/tutorial/">官方教程。</a></p>
+
+</div>
+
+
+ <!-- 以下是需要的尾 -->
+
+
+<hr>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Akuan maintained by <a href="https://github.com/Liubj2016">Liubj2016</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>   
+
+  </body>
+</html>
