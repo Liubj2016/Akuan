@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Akuan : 面白い人間になりたい">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>read</title>
+  </head>
+
+  <body>
+      <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Liubj2016/Akuan">View on GitHub</a>
+          <div class="clearfix">
+                <ul id="menu" class="drop">
+                    <li><a href="http://liubj2016.github.io/Akuan">Home</a></li>
+                </ul>
+            </div>
+
+          <h1 id="project_title">Akuan</h1>
+          <h2 id="project_tagline">面白い人間になりたい</h2>
+
+            
+        </header>
+    </div>
+
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<!-- 以上是需要的头 -->
+
+<div class="markdown-body">
+  <h2>
+<a id="user-content-21平稳性" class="anchor" href="#21%E5%B9%B3%E7%A8%B3%E6%80%A7" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.1平稳性</h2>
+
+<p>如果一个时间序列满足：</p>
+
+<ul>
+<li>均值是常数</li>
+<li>方差存在且为常数</li>
+<li>协方差只与时间间隔有关，与时间无关<br>
+</li>
+</ul>
+
+<p>则它是弱平稳的。</p>
+
+<h2>
+<a id="user-content-22相关系数和自相关函数" class="anchor" href="#22%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0%E5%92%8C%E8%87%AA%E7%9B%B8%E5%85%B3%E5%87%BD%E6%95%B0" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.2相关系数和自相关函数</h2>
+
+<p><strong>皮尔逊相关系数</strong>：</p>
+
+<p><img src="images/AFDR1.png" alt="image"></p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-v">da</span><span class="pl-k">=</span>read.table(<span class="pl-s"><span class="pl-pds">"</span>m-ibmsp6709.txt<span class="pl-pds">"</span></span>,<span class="pl-v">header</span><span class="pl-k">=</span><span class="pl-c1">T</span>)
+head(<span class="pl-smi">da</span>)
+<span class="pl-v">ibm</span><span class="pl-k">=</span><span class="pl-smi">da</span><span class="pl-k">$</span><span class="pl-smi">ibm</span>
+<span class="pl-v">sp5</span><span class="pl-k">=</span><span class="pl-smi">da</span><span class="pl-k">$</span><span class="pl-smi">sp</span>
+cor(<span class="pl-smi">sp5</span>,<span class="pl-smi">ibm</span>)
+cor(<span class="pl-smi">sp5</span>,<span class="pl-smi">ibm</span>,<span class="pl-v">method</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>spearman<span class="pl-pds">'</span></span>)
+cor(<span class="pl-smi">sp5</span>,<span class="pl-smi">ibm</span>,<span class="pl-v">method</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>kendall<span class="pl-pds">'</span></span>)</pre></div>
+
+<p><strong>自相关函数</strong>：</p>
+
+<p><img src="images/AFDR2.png" alt="image"></p>
+
+<p>一个弱平稳时间序列<span title="MathGene HTML"><i>x</i><sub><sub><i>t</i></sub></sub></span>是序列自身前后不相关的。</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-v">da</span><span class="pl-k">=</span>read.table(<span class="pl-s"><span class="pl-pds">"</span>m-dec12910.txt<span class="pl-pds">"</span></span>,<span class="pl-v">header</span><span class="pl-k">=</span><span class="pl-c1">T</span>)
+<span class="pl-v">d10</span><span class="pl-k">=</span><span class="pl-smi">da</span><span class="pl-k">$</span><span class="pl-smi">dec10</span>  <span class="pl-c"># select the Decile 10 returns</span>
+<span class="pl-v">dec10</span><span class="pl-k">=</span>ts(<span class="pl-smi">d10</span>,<span class="pl-v">frequency</span><span class="pl-k">=</span><span class="pl-c1">12</span>,<span class="pl-v">start</span><span class="pl-k">=</span>c(<span class="pl-c1">1967</span>,<span class="pl-c1">1</span>))
+par(<span class="pl-v">mfcol</span><span class="pl-k">=</span>c(<span class="pl-c1">2</span>,<span class="pl-c1">1</span>))
+plot(<span class="pl-smi">dec10</span>,<span class="pl-v">xlab</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>year<span class="pl-pds">'</span></span>,<span class="pl-v">ylab</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>returns<span class="pl-pds">'</span></span>)
+title(<span class="pl-v">main</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>(a): Simple returns<span class="pl-pds">'</span></span>)
+acf(<span class="pl-smi">d10</span>,<span class="pl-v">lag</span><span class="pl-k">=</span><span class="pl-c1">24</span>) <span class="pl-c"># command to obtain sample ACF of the data</span></pre></div>
+
+<p><img src="images/rplot1.png" alt="image"></p>
+
+<p><strong>混成检验</strong></p>
+
+<p>一个线性时间序列模型可以完全由其ACF来刻画，我们经常需要联合检验<span title="MathGene HTML"><i>x</i><sub><sub><i>t</i></sub></sub></span>的多个自相关系数是否同时为0，Box和Pierce提出了混成统计量，R里用<code>Box.test</code>来实现：</p>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-v">da</span><span class="pl-k">=</span>read.table(<span class="pl-s"><span class="pl-pds">"</span>m-ibmsp6709.txt<span class="pl-pds">"</span></span>,<span class="pl-v">header</span><span class="pl-k">=</span><span class="pl-c1">T</span>)
+<span class="pl-v">ibm</span><span class="pl-k">=</span><span class="pl-smi">da</span><span class="pl-k">$</span><span class="pl-smi">ibm</span>
+<span class="pl-v">lnibm</span><span class="pl-k">=</span>log(<span class="pl-smi">ibm</span><span class="pl-k">+</span><span class="pl-c1">1</span>) <span class="pl-c"># Transfer to log returns</span>
+Box.test(<span class="pl-smi">ibm</span>,<span class="pl-v">lag</span><span class="pl-k">=</span><span class="pl-c1">12</span>,<span class="pl-v">type</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>Ljung<span class="pl-pds">'</span></span>)
+Box.test(<span class="pl-smi">lnibm</span>,<span class="pl-v">lag</span><span class="pl-k">=</span><span class="pl-c1">12</span>,<span class="pl-v">type</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>Ljung<span class="pl-pds">'</span></span>)</pre></div>
+
+<p><img src="images/r3.png" alt="image"></p>
+
+<p>可以看到P值不显著，则接受原假设，即自相关函数为0.</p>
+
+<h2>
+<a id="user-content-23白噪声" class="anchor" href="#23%E7%99%BD%E5%99%AA%E5%A3%B0" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.3白噪声</h2>
+
+<ul>
+<li>
+<strong>白噪声</strong>：具有有限均值和有限方差的独立同分布的时间序列。</li>
+<li>
+<strong>高斯白噪声</strong>：一个服从均值为0、方差有限的白噪声序列。</li>
+</ul>
+
+<h2>
+<a id="user-content-24简单自回归模型ar" class="anchor" href="#24%E7%AE%80%E5%8D%95%E8%87%AA%E5%9B%9E%E5%BD%92%E6%A8%A1%E5%9E%8Bar" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.4简单自回归模型（AR）</h2>
+
+<p><img src="images/ar1.png" alt="image"></p>
+
+<h3>
+<a id="user-content-241ar模型的性质" class="anchor" href="#241ar%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%80%A7%E8%B4%A8" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.4.1AR模型的性质</h3>
+
+<ul>
+<li>
+<strong>均值</strong>：<img src="images/ar2.png" alt="image">
+</li>
+<li>
+<strong>方差</strong>：<img src="images/ar3.png" alt="image">
+</li>
+<li>
+<strong>平稳的充要条件</strong>：<img src="images/ar4.png" alt="image">
+</li>
+<li>
+<strong>自相关系数</strong>：呈现漂亮的指数衰减。</li>
+</ul>
+
+<h3>
+<a id="user-content-242实践中ar模型的识别" class="anchor" href="#242%E5%AE%9E%E8%B7%B5%E4%B8%ADar%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AF%86%E5%88%AB" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.4.2实践中AR模型的识别</h3>
+
+<p>AR(p)序列的的样本偏自相关函数是p步截尾的。</p>
+
+<h2>
+<a id="user-content-25简单移动平均模型ma" class="anchor" href="#25%E7%AE%80%E5%8D%95%E7%A7%BB%E5%8A%A8%E5%B9%B3%E5%9D%87%E6%A8%A1%E5%9E%8Bma" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.5简单移动平均模型（MA）</h2>
+
+<p>MA(1)模型的一般形式为：</p>
+
+<p><img src="images/MA1.png" alt="image"></p>
+
+<h3>
+<a id="user-content-251ma模型的性质" class="anchor" href="#251ma%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%80%A7%E8%B4%A8" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.5.1MA模型的性质</h3>
+
+<ul>
+<li>MA模型的常数项就是序列的的均值</li>
+<li>MA(q)模型的方差为<img src="images/MA2.png" alt="image">
+</li>
+<li>自相关函数（ACF）<img src="images/MA3.png" alt="image">
+</li>
+<li>MA(q)序列只与其前q个滞后值线性相关，是一个“有限记忆”模型。</li>
+</ul>
+
+<h3>
+<a id="user-content-252ma模型定阶" class="anchor" href="#252ma%E6%A8%A1%E5%9E%8B%E5%AE%9A%E9%98%B6" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.5.2MA模型定阶</h3>
+
+<p>简单的说，<strong>MA(q)</strong>模型的ACF是<strong>q</strong>阶截尾的。</p>
+
+<h2>
+<a id="user-content-26简单arma模型" class="anchor" href="#26%E7%AE%80%E5%8D%95arma%E6%A8%A1%E5%9E%8B" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.6简单ARMA模型</h2>
+
+<p>ARMA(1,1)模型的形式：</p>
+
+<p><img src="images/ARMA1.png" alt="image"></p>
+
+<h3>
+<a id="user-content-261arma11模型的性质" class="anchor" href="#261arma11%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%80%A7%E8%B4%A8" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.6.1ARMA(1,1)模型的性质</h3>
+
+<ul>
+<li>均值：<img src="images/ARMA2.png" alt="image">
+</li>
+<li>方差：<img src="images/ARMA3.png" alt="image">
+</li>
+<li>ACF和PACF都不能在任意有限间隔后截尾</li>
+<li>ACF与AR(1)模型很相似，只是指数衰减从间隔2开始。</li>
+<li>PACF与MA(1)模型很相似，只是指数衰减从间隔2开始。</li>
+</ul>
+
+<h3>
+<a id="user-content-262arma模型的识别" class="anchor" href="#262arma%E6%A8%A1%E5%9E%8B%E7%9A%84%E8%AF%86%E5%88%AB" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.6.2ARMA模型的识别</h3>
+
+<p>ACF和PACF都无法提供足够的信息来识别ARMA模型，这时可以用到推广的自相关函数（<strong>EACF</strong>）。</p>
+
+<h2>
+<a id="user-content-27单位根非平稳型" class="anchor" href="#27%E5%8D%95%E4%BD%8D%E6%A0%B9%E9%9D%9E%E5%B9%B3%E7%A8%B3%E5%9E%8B" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.7单位根非平稳型</h2>
+
+<p>利率、汇率、资产的价格序列往往都是非平稳的，这样的非平稳序列叫做<strong>单位根非平稳时间序列（unit-root nonstationary time series）</strong>。</p>
+
+<h3>
+<a id="user-content-271随机游走" class="anchor" href="#271%E9%9A%8F%E6%9C%BA%E6%B8%B8%E8%B5%B0" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.7.1随机游走</h3>
+
+<p><img src="images/RW1.png" alt="image"></p>
+
+<p>它可以被看作一个特殊的AR(1)模型，那么<span title="MathGene HTML"><i>p</i><sub><sub><i>t-1</i></sub></sub></span>的系数是1，这不满足AR(1)的平稳性条件。从而随机游走不是弱平稳的。</p>
+
+<h3>
+<a id="user-content-272带漂移的随机游走" class="anchor" href="#272%E5%B8%A6%E6%BC%82%E7%A7%BB%E7%9A%84%E9%9A%8F%E6%9C%BA%E6%B8%B8%E8%B5%B0" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.7.2带漂移的随机游走</h3>
+
+<p><img src="images/RW2.png" alt="image"></p>
+
+<p>常数项表示价格的时间趋势，通常称为模型的<strong>漂移（drift）</strong>。</p>
+
+<p>常数项的解释：</p>
+
+<ol>
+<li>对于MA(q)模型，常数项就是序列的均值；</li>
+<li>对于AR(p)和ARMA(p,q)模型，常数项与均值有关；</li>
+<li>对带漂移的随机游走，常数项变为序列的时间斜率。</li>
+</ol>
+
+<h3>
+<a id="user-content-273单位根检验" class="anchor" href="#273%E5%8D%95%E4%BD%8D%E6%A0%B9%E6%A3%80%E9%AA%8C" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.7.3单位根检验</h3>
+
+<p>原假设：有单位根<span title="MathGene HTML"><i>p</i><sub><sub><i>t-1</i></sub></sub></span>的系数为1；
+备择假设：其系数小于1.</p>
+
+<p>利用如下两个模型：</p>
+
+<p><img src="images/RW3.png" alt="image"></p>
+
+<p>DF统计量为：</p>
+
+<p><img src="images/RW4.png" alt="image"></p>
+
+<p>由于经常使用的是AR(p)模型，所以需要用到<strong>扩展DF单位根(Augmented Dickey-Fuller, ADF)检验</strong>。</p>
+
+<p><img src="images/RW5.png" alt="image"></p>
+
+<p><img src="images/RW6.png" alt="image"></p>
+
+<div class="highlight highlight-source-r"><pre>library(<span class="pl-smi">fUnitRoots</span>)
+<span class="pl-v">da</span><span class="pl-k">=</span>read.table(<span class="pl-s"><span class="pl-pds">"</span>q-gdp4708.txt<span class="pl-pds">"</span></span>,<span class="pl-v">header</span><span class="pl-k">=</span><span class="pl-c1">T</span>)
+<span class="pl-v">gdp</span><span class="pl-k">=</span>log(<span class="pl-smi">da</span>[,<span class="pl-c1">4</span>])
+<span class="pl-v">m1</span><span class="pl-k">=</span>ar(diff(<span class="pl-smi">gdp</span>),<span class="pl-v">method</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>mle<span class="pl-pds">'</span></span>)
+adfTest(<span class="pl-smi">gdp</span>,<span class="pl-v">lags</span><span class="pl-k">=</span><span class="pl-c1">10</span>,<span class="pl-v">type</span><span class="pl-k">=</span>c(<span class="pl-s"><span class="pl-pds">"</span>c<span class="pl-pds">"</span></span>))</pre></div>
+
+<p><img src="images/RW7.png" alt="image"></p>
+
+<p>p值可以看出接受原假设，即存在单位根。</p>
+
+</div>
+
+
+<!-- 以下是需要的尾 -->
+
+
+<hr>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Akuan maintained by <a href="https://github.com/Liubj2016">Liubj2016</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>   
+
+  </body>
+</html>
