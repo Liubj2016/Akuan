@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Akuan : 面白い人間になりたい">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>life</title>
+  </head>
+
+  <body>
+      <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Liubj2016/Akuan">View on GitHub</a>
+          <div class="clearfix">
+                <ul id="menu" class="drop">
+                    <li><a href="http://liubj2016.github.io/Akuan">Home</a></li>
+                    <li><a>liubaojie2016@163.com</163></a></li>
+                </ul>
+            </div>
+
+          <h1 id="project_title">Akuan</h1>
+          <h2 id="project_tagline">面白い人間になりたい</h2>
+
+            
+        </header>
+    </div>
+
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<!-- 以上是需要的头 -->
+
+<div class="markdown-body">
+  <h1>
+<a id="user-content-打飞机丧心病狂版" class="anchor" href="#%E6%89%93%E9%A3%9E%E6%9C%BA%E4%B8%A7%E5%BF%83%E7%97%85%E7%8B%82%E7%89%88" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>打飞机丧心病狂版</h1>
+
+<p>这是在打飞机正常版上修改的结果（我是有多桑心病狂。。。）。</p>
+
+
+<p><img src="images/dafeiji.png" alt="image"></p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-c"># -*- coding: utf-8 -*-</span>
+<span class="pl-k">import</span> pygame
+<span class="pl-k">import</span> random
+<span class="pl-c">#导入pygame库</span>
+<span class="pl-k">from</span> sys <span class="pl-k">import</span> <span class="pl-c1">exit</span> <span class="pl-c">#向sys模块借一个exit函数来退出程序</span>
+<span class="pl-k">def</span> <span class="pl-en">checkHit</span>(<span class="pl-smi">bullet</span>,<span class="pl-smi">enimy</span>):
+    <span class="pl-k">if</span>((bullet.x<span class="pl-k">&gt;</span>enimy.x <span class="pl-k">and</span> bullet.x<span class="pl-k">&lt;</span>enimy.x<span class="pl-k">+</span>enimy.image.get_width())<span class="pl-k">and</span> (bullet.y<span class="pl-k">&gt;</span>enimy.y <span class="pl-k">and</span> bullet.y<span class="pl-k">&lt;</span>enimy.y<span class="pl-k">+</span>enimy.image.get_height())):
+        enimy.restart()
+        bullet.active<span class="pl-k">=</span><span class="pl-c1">False</span>
+        <span class="pl-k">return</span> <span class="pl-c1">True</span>
+    <span class="pl-k">return</span> <span class="pl-c1">False</span>
+<span class="pl-k">def</span> <span class="pl-en">checkCrash</span>(<span class="pl-smi">plane</span>,<span class="pl-smi">enimy</span>):
+    <span class="pl-k">if</span> ( (plane.x <span class="pl-k">+</span> <span class="pl-c1">0.7</span><span class="pl-k">*</span>plane.image.get_width() <span class="pl-k">&gt;</span> enimy.x) <span class="pl-k">and</span> (plane.x <span class="pl-k">+</span> <span class="pl-c1">0.3</span><span class="pl-k">*</span>plane.image.get_width() <span class="pl-k">&lt;</span> enimy.x <span class="pl-k">+</span> enimy.image.get_width()) <span class="pl-k">and</span> (plane.y <span class="pl-k">+</span> <span class="pl-c1">0.7</span><span class="pl-k">*</span>plane.image.get_height() <span class="pl-k">&gt;</span> enimy.y) <span class="pl-k">and</span> (plane.y <span class="pl-k">+</span> <span class="pl-c1">0.3</span><span class="pl-k">*</span>plane.image.get_height() <span class="pl-k">&lt;</span> enimy.y <span class="pl-k">+</span> enimy.image.get_height())):
+        enimy.restart()
+        plane.restart()
+        <span class="pl-k">return</span> <span class="pl-c1">True</span>
+    <span class="pl-k">return</span> <span class="pl-c1">False</span>
+<span class="pl-k">class</span> <span class="pl-en">Bullet</span>():
+    <span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        <span class="pl-v">self</span>.x<span class="pl-k">=</span><span class="pl-c1">0</span>
+        <span class="pl-v">self</span>.y<span class="pl-k">=</span><span class="pl-k">-</span><span class="pl-c1">1</span>
+        <span class="pl-v">self</span>.image<span class="pl-k">=</span>pygame.image.load(<span class="pl-s"><span class="pl-pds">'</span>zidan.png<span class="pl-pds">'</span></span>).convert_alpha()
+        <span class="pl-v">self</span>.active<span class="pl-k">=</span><span class="pl-c1">False</span>
+    <span class="pl-k">def</span> <span class="pl-en">move</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        <span class="pl-k">if</span> <span class="pl-v">self</span>.active:
+            <span class="pl-v">self</span>.y<span class="pl-k">-=</span><span class="pl-c1">0.3</span>
+        <span class="pl-k">if</span> <span class="pl-v">self</span>.y<span class="pl-k">&lt;</span><span class="pl-c1">0</span>:
+            <span class="pl-v">self</span>.active<span class="pl-k">=</span><span class="pl-c1">False</span>
+    <span class="pl-c"># def restart(self):</span>
+    <span class="pl-c">#     mouseX, mouseY = pygame.mouse.get_pos()</span>
+    <span class="pl-c">#     self.x = mouseX - self.image.get_width() / 2</span>
+    <span class="pl-c">#     self.y = mouseY - self.image.get_height() / 2</span>
+    <span class="pl-c">#     self.active=True</span>
+<span class="pl-k">class</span> <span class="pl-en">Bullet1</span>(<span class="pl-e">Bullet</span>):
+    <span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        Bullet.<span class="pl-c1">__init__</span>(<span class="pl-v">self</span>)
+        <span class="pl-v">self</span>.image<span class="pl-k">=</span>pygame.image.load(<span class="pl-s"><span class="pl-pds">'</span>zidan2.png<span class="pl-pds">'</span></span>).convert_alpha()
+    <span class="pl-k">def</span> <span class="pl-en">move</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        <span class="pl-k">if</span> <span class="pl-v">self</span>.active:
+            <span class="pl-v">self</span>.x<span class="pl-k">-=</span><span class="pl-c1">0.2</span>
+        <span class="pl-k">if</span> <span class="pl-v">self</span>.x<span class="pl-k">&lt;</span><span class="pl-c1">0</span> <span class="pl-k">or</span> <span class="pl-v">self</span>.x<span class="pl-k">&gt;</span><span class="pl-c1">333</span>:
+            <span class="pl-v">self</span>.active<span class="pl-k">=</span><span class="pl-c1">False</span>
+    <span class="pl-k">def</span> <span class="pl-en">restart</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        mouseX, mouseY <span class="pl-k">=</span> pygame.mouse.get_pos()
+        <span class="pl-v">self</span>.x <span class="pl-k">=</span> mouseX <span class="pl-k">-</span> <span class="pl-v">self</span>.image.get_width() <span class="pl-k">/</span> <span class="pl-c1">2</span>
+        <span class="pl-v">self</span>.y <span class="pl-k">=</span> mouseY <span class="pl-k">-</span> <span class="pl-v">self</span>.image.get_height() <span class="pl-k">/</span> <span class="pl-c1">2</span>
+        <span class="pl-v">self</span>.active<span class="pl-k">=</span><span class="pl-c1">True</span>
+<span class="pl-k">class</span> <span class="pl-en">Bullet2</span>(<span class="pl-e">Bullet</span>):
+    <span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        Bullet.<span class="pl-c1">__init__</span>(<span class="pl-v">self</span>)
+        <span class="pl-v">self</span>.image<span class="pl-k">=</span>pygame.image.load(<span class="pl-s"><span class="pl-pds">'</span>zidan2.png<span class="pl-pds">'</span></span>).convert_alpha()
+    <span class="pl-k">def</span> <span class="pl-en">move</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        <span class="pl-k">if</span> <span class="pl-v">self</span>.active:
+            <span class="pl-v">self</span>.x<span class="pl-k">+=</span><span class="pl-c1">0.2</span>
+        <span class="pl-k">if</span> <span class="pl-v">self</span>.x<span class="pl-k">&lt;</span><span class="pl-c1">0</span> <span class="pl-k">or</span> <span class="pl-v">self</span>.x<span class="pl-k">&gt;</span><span class="pl-c1">333</span>:
+            <span class="pl-v">self</span>.active<span class="pl-k">=</span><span class="pl-c1">False</span>
+    <span class="pl-k">def</span> <span class="pl-en">restart</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        mouseX, mouseY <span class="pl-k">=</span> pygame.mouse.get_pos()
+        <span class="pl-v">self</span>.x <span class="pl-k">=</span> mouseX <span class="pl-k">-</span> <span class="pl-v">self</span>.image.get_width() <span class="pl-k">/</span> <span class="pl-c1">2</span>
+        <span class="pl-v">self</span>.y <span class="pl-k">=</span> mouseY <span class="pl-k">-</span> <span class="pl-v">self</span>.image.get_height() <span class="pl-k">/</span> <span class="pl-c1">2</span>
+        <span class="pl-v">self</span>.active<span class="pl-k">=</span><span class="pl-c1">True</span>
+<span class="pl-k">class</span> <span class="pl-en">BulletR</span>(<span class="pl-e">Bullet</span>):
+    <span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        Bullet.<span class="pl-c1">__init__</span>(<span class="pl-v">self</span>)
+    <span class="pl-k">def</span> <span class="pl-en">move</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        Bullet.move(<span class="pl-v">self</span>)
+    <span class="pl-k">def</span> <span class="pl-en">restart</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        mouseX, mouseY <span class="pl-k">=</span> pygame.mouse.get_pos()
+        <span class="pl-v">self</span>.x <span class="pl-k">=</span> (mouseX <span class="pl-k">-</span> <span class="pl-v">self</span>.image.get_width() <span class="pl-k">/</span> <span class="pl-c1">2</span>)<span class="pl-k">+</span><span class="pl-c1">22</span>
+        <span class="pl-v">self</span>.y <span class="pl-k">=</span> mouseY <span class="pl-k">-</span> <span class="pl-v">self</span>.image.get_height() <span class="pl-k">/</span> <span class="pl-c1">2</span>
+        <span class="pl-v">self</span>.active<span class="pl-k">=</span><span class="pl-c1">True</span>
+<span class="pl-k">class</span> <span class="pl-en">BulletL</span>(<span class="pl-e">Bullet</span>):
+    <span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        Bullet.<span class="pl-c1">__init__</span>(<span class="pl-v">self</span>)
+    <span class="pl-k">def</span> <span class="pl-en">move</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        Bullet.move(<span class="pl-v">self</span>)
+    <span class="pl-k">def</span> <span class="pl-en">restart</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        mouseX, mouseY <span class="pl-k">=</span> pygame.mouse.get_pos()
+        <span class="pl-v">self</span>.x <span class="pl-k">=</span> (mouseX <span class="pl-k">-</span> <span class="pl-v">self</span>.image.get_width() <span class="pl-k">/</span> <span class="pl-c1">2</span>)<span class="pl-k">-</span><span class="pl-c1">20</span>
+        <span class="pl-v">self</span>.y <span class="pl-k">=</span> mouseY <span class="pl-k">-</span> <span class="pl-v">self</span>.image.get_height() <span class="pl-k">/</span> <span class="pl-c1">2</span>
+        <span class="pl-v">self</span>.active<span class="pl-k">=</span><span class="pl-c1">True</span>
+<span class="pl-k">class</span> <span class="pl-en">Enimy</span>():
+    <span class="pl-k">def</span> <span class="pl-en">restart</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        <span class="pl-v">self</span>.x <span class="pl-k">=</span> random.randint(<span class="pl-c1">0</span>, <span class="pl-c1">400</span>)
+        <span class="pl-v">self</span>.y <span class="pl-k">=</span> random.randint(<span class="pl-k">-</span><span class="pl-c1">200</span>, <span class="pl-k">-</span><span class="pl-c1">50</span>)
+        <span class="pl-v">self</span>.speed <span class="pl-k">=</span> random.random()<span class="pl-k">/</span><span class="pl-c1">6</span> <span class="pl-k">+</span> <span class="pl-c1">0.05</span>
+
+    <span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        <span class="pl-v">self</span>.restart()
+        <span class="pl-v">self</span>.image <span class="pl-k">=</span> pygame.image.load(<span class="pl-s"><span class="pl-pds">'</span>enimy.png<span class="pl-pds">'</span></span>).convert_alpha()
+
+    <span class="pl-k">def</span> <span class="pl-en">move</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        <span class="pl-k">if</span> <span class="pl-v">self</span>.y <span class="pl-k">&lt;</span> <span class="pl-c1">500</span>:
+            <span class="pl-v">self</span>.y <span class="pl-k">+=</span> <span class="pl-v">self</span>.speed
+        <span class="pl-k">else</span>:
+            <span class="pl-v">self</span>.restart()
+<span class="pl-k">class</span> <span class="pl-en">Plane</span>():
+    <span class="pl-k">def</span> <span class="pl-en">restart</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        <span class="pl-v">self</span>.x<span class="pl-k">=</span><span class="pl-c1">167</span>
+        <span class="pl-v">self</span>.y<span class="pl-k">=</span><span class="pl-c1">500</span>
+    <span class="pl-k">def</span> <span class="pl-c1">__init__</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        <span class="pl-v">self</span>.restart()
+        <span class="pl-v">self</span>.image<span class="pl-k">=</span>pygame.image.load(<span class="pl-s"><span class="pl-pds">'</span>dafeiji.png<span class="pl-pds">'</span></span>).convert_alpha()
+    <span class="pl-k">def</span> <span class="pl-en">move</span>(<span class="pl-smi"><span class="pl-smi">self</span></span>):
+        x,y<span class="pl-k">=</span>pygame.mouse.get_pos()
+        x<span class="pl-k">-=</span><span class="pl-v">self</span>.image.get_width()<span class="pl-k">/</span><span class="pl-c1">2</span>
+        y<span class="pl-k">-=</span><span class="pl-v">self</span>.image.get_height()<span class="pl-k">/</span><span class="pl-c1">2</span>
+        <span class="pl-v">self</span>.x<span class="pl-k">=</span>x
+        <span class="pl-v">self</span>.y<span class="pl-k">=</span>y
+pygame.init()
+score<span class="pl-k">=</span><span class="pl-c1">0</span>
+f<span class="pl-k">=</span><span class="pl-v">file</span>(<span class="pl-s"><span class="pl-pds">'</span>highscore.txt<span class="pl-pds">'</span></span>)
+hscore<span class="pl-k">=</span><span class="pl-c1">int</span>(f.read())
+f.close()
+<span class="pl-c">#初始化pygame，做硬件准备</span>
+screen<span class="pl-k">=</span>pygame.display.set_mode((<span class="pl-c1">333</span>,<span class="pl-c1">497</span>),<span class="pl-c1">0</span>,<span class="pl-c1">32</span>)
+<span class="pl-c">#创建了一个窗口，窗口大小和背景图片一样</span>
+pygame.display.set_caption(<span class="pl-s"><span class="pl-pds">"</span>Fghting!<span class="pl-pds">"</span></span>)
+<span class="pl-c">#设置窗口标题</span>
+background<span class="pl-k">=</span>pygame.image.load(<span class="pl-s"><span class="pl-pds">'</span>back.jpg<span class="pl-pds">'</span></span>).convert()
+plane<span class="pl-k">=</span>Plane()
+bulletsR<span class="pl-k">=</span>[]
+bulletsL<span class="pl-k">=</span>[]
+bullets1<span class="pl-k">=</span>[]
+bullets2<span class="pl-k">=</span>[]
+enimys<span class="pl-k">=</span>[]
+<span class="pl-k">for</span> i <span class="pl-k">in</span> <span class="pl-c1">range</span>(<span class="pl-c1">5</span>):
+    bulletsR.append(BulletR())
+    bulletsL.append(BulletL())
+    bullets1.append(Bullet1())
+    bullets2.append(Bullet2())
+    enimys.append(Enimy())
+count_b<span class="pl-k">=</span><span class="pl-c1">len</span>(bulletsR)
+index_b<span class="pl-k">=</span><span class="pl-c1">0</span>
+interval_b<span class="pl-k">=</span><span class="pl-c1">0</span>
+gameover <span class="pl-k">=</span> <span class="pl-c1">False</span>
+font<span class="pl-k">=</span>pygame.font.Font(<span class="pl-c1">None</span>,<span class="pl-c1">32</span>)
+<span class="pl-k">while</span> <span class="pl-c1">True</span>:
+    <span class="pl-c">#游戏主循环</span>
+    <span class="pl-k">for</span> event <span class="pl-k">in</span> pygame.event.get():
+        <span class="pl-k">if</span> event.type<span class="pl-k">==</span>pygame.<span class="pl-c1">QUIT</span>:
+            pygame.quit()
+            <span class="pl-c1">exit</span>()
+        <span class="pl-k">if</span> gameover <span class="pl-k">and</span> event.type <span class="pl-k">==</span> pygame.<span class="pl-c1">MOUSEBUTTONUP</span>:
+            plane.restart()
+            <span class="pl-k">for</span> e <span class="pl-k">in</span> enimys:
+                e.restart()
+            <span class="pl-k">for</span> bR <span class="pl-k">in</span> bulletsR:
+                bR.active <span class="pl-k">=</span> <span class="pl-c1">False</span>
+            <span class="pl-k">for</span> bL <span class="pl-k">in</span> bulletsL:
+                bL.active <span class="pl-k">=</span> <span class="pl-c1">False</span>
+            score <span class="pl-k">=</span> <span class="pl-c1">0</span>
+            gameover <span class="pl-k">=</span> <span class="pl-c1">False</span>
+    screen.blit(background, (<span class="pl-c1">0</span>, <span class="pl-c1">0</span>))
+    <span class="pl-k">if</span> <span class="pl-k">not</span> gameover:
+        interval_b<span class="pl-k">-=</span><span class="pl-c1">1</span>
+        <span class="pl-k">if</span> interval_b<span class="pl-k">&lt;</span><span class="pl-c1">0</span>:
+            bulletsR[index_b].restart()
+            bulletsL[index_b].restart()
+            bullets1[index_b].restart()
+            bullets2[index_b].restart()
+            interval_b<span class="pl-k">=</span><span class="pl-c1">800</span>
+            index_b<span class="pl-k">=</span>(index_b<span class="pl-k">+</span><span class="pl-c1">1</span>)<span class="pl-k">%</span>count_b
+        <span class="pl-k">for</span> bR <span class="pl-k">in</span> bulletsR:
+            <span class="pl-k">if</span> bR.active:
+                <span class="pl-k">for</span> e <span class="pl-k">in</span> enimys:
+                    <span class="pl-k">if</span> checkHit(bR,e):
+                        score<span class="pl-k">+=</span><span class="pl-c1">100</span>
+                bR.move()
+                screen.blit(bR.image,(bR.x,bR.y))
+        <span class="pl-k">for</span> bL <span class="pl-k">in</span> bulletsL:
+            <span class="pl-k">if</span> bL.active:
+                <span class="pl-k">for</span> e <span class="pl-k">in</span> enimys:
+                    <span class="pl-k">if</span> checkHit(bL,e):
+                        score<span class="pl-k">+=</span><span class="pl-c1">100</span>
+                bL.move()
+                screen.blit(bL.image,(bL.x,bL.y))
+        <span class="pl-k">for</span> b1 <span class="pl-k">in</span> bullets1:
+            <span class="pl-k">if</span> b1.active:
+                <span class="pl-k">for</span> e <span class="pl-k">in</span> enimys:
+                    <span class="pl-k">if</span> checkHit(b1,e):
+                        score<span class="pl-k">+=</span><span class="pl-c1">100</span>
+                b1.move()
+                screen.blit(b1.image,(b1.x,b1.y))
+        <span class="pl-k">for</span> b2 <span class="pl-k">in</span> bullets2:
+            <span class="pl-k">if</span> b2.active:
+                <span class="pl-k">for</span> e <span class="pl-k">in</span> enimys:
+                    <span class="pl-k">if</span> checkHit(b2,e):
+                        score<span class="pl-k">+=</span><span class="pl-c1">100</span>
+                b2.move()
+                screen.blit(b2.image,(b2.x,b2.y))
+        <span class="pl-k">for</span> e <span class="pl-k">in</span> enimys:
+            <span class="pl-k">if</span> checkCrash(plane,e):
+                gameover<span class="pl-k">=</span><span class="pl-c1">True</span>
+            e.move()
+            screen.blit(e.image,(e.x,e.y))
+        plane.move()
+        screen.blit(plane.image, (plane.x,plane.y))
+        test <span class="pl-k">=</span> font.render(<span class="pl-s"><span class="pl-pds">'</span>Score: <span class="pl-c1">%d</span><span class="pl-pds">'</span></span> <span class="pl-k">%</span> score, <span class="pl-c1">1</span>, (<span class="pl-c1">0</span>, <span class="pl-c1">0</span>, <span class="pl-c1">0</span>))
+        screen.blit(test, (<span class="pl-c1">0</span>, <span class="pl-c1">0</span>))
+        text<span class="pl-k">=</span>font.render(<span class="pl-s"><span class="pl-pds">'</span>Highscore: <span class="pl-c1">%d</span><span class="pl-pds">'</span></span><span class="pl-k">%</span>hscore,<span class="pl-c1">1</span>,(<span class="pl-c1">0</span>,<span class="pl-c1">0</span>,<span class="pl-c1">0</span>))
+        screen.blit(text,(<span class="pl-c1">155</span>,<span class="pl-c1">0</span>))
+        <span class="pl-k">if</span> score<span class="pl-k">&gt;</span>hscore:
+            hscore<span class="pl-k">=</span>score
+            highscore<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-c1">%d</span><span class="pl-pds">'</span></span><span class="pl-k">%</span>hscore
+            out<span class="pl-k">=</span><span class="pl-c1">open</span>(<span class="pl-s"><span class="pl-pds">'</span>highscore.txt<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>w<span class="pl-pds">'</span></span>)
+            out.write(highscore)
+            out.close()
+    <span class="pl-k">else</span>:
+        test<span class="pl-k">=</span>font.render(<span class="pl-s"><span class="pl-pds">'</span>Score: <span class="pl-c1">%d</span><span class="pl-pds">'</span></span><span class="pl-k">%</span>score,<span class="pl-c1">1</span>,(<span class="pl-c1">0</span>,<span class="pl-c1">0</span>,<span class="pl-c1">0</span>))
+        screen.blit(test,(<span class="pl-c1">110</span>,<span class="pl-c1">250</span>))
+        <span class="pl-k">pass</span>
+    pygame.display.update()
+    <span class="pl-c">#刷新画面</span></pre></div>
+
+</div>
+
+  <!-- 以下是需要的尾 -->
+
+
+<hr>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Akuan maintained by <a href="https://github.com/Liubj2016">Liubj2016</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>   
+
+  </body>
+</html>

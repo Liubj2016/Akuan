@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Akuan : 面白い人間になりたい">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>learn</title>
+  </head>
+
+  <body>
+      <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Liubj2016/Akuan">View on GitHub</a>
+          <div class="clearfix">
+                <ul id="menu" class="drop">
+                    <li><a href="http://liubj2016.github.io/Akuan">Home</a></li>
+                    <li><a>liubaojie2016@163.com</163></a></li>
+                </ul>
+            </div>
+
+          <h1 id="project_title">Akuan</h1>
+          <h2 id="project_tagline">面白い人間になりたい</h2>
+
+            
+        </header>
+    </div>
+
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<!-- 以上是需要的头 -->
+
+<div class="markdown-body">
+  <h1>
+<a id="user-content-政府工作报告的高频词汇" class="anchor" href="#%E6%94%BF%E5%BA%9C%E5%B7%A5%E4%BD%9C%E6%8A%A5%E5%91%8A%E7%9A%84%E9%AB%98%E9%A2%91%E8%AF%8D%E6%B1%87" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>政府工作报告的高频词汇</h1>
+
+<p>今天学了一招，找一下政府工作报告里高频出现的词汇，说不定能帮助炒股呢！（肯定是错觉。。）</p>
+
+<p>其实就是一个简单的爬虫。首先，先把工作报告的内容抓下来：</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-c">#-*- coding: utf-8 -*-</span>
+<span class="pl-k">import</span> sys
+<span class="pl-k">import</span> jieba
+<span class="pl-k">import</span> requests
+<span class="pl-k">from</span> bs4 <span class="pl-k">import</span> BeautifulSoup
+<span class="pl-c">#导入需要的包</span>
+
+<span class="pl-k">def</span> <span class="pl-en">extract_text</span>(<span class="pl-smi">url</span>):
+    page_source<span class="pl-k">=</span>requests.get(url).content
+    bs_source<span class="pl-k">=</span>BeautifulSoup(page_source)
+    report_text<span class="pl-k">=</span>bs_source.find_all(<span class="pl-s"><span class="pl-pds">'</span>p<span class="pl-pds">'</span></span>)
+
+    text<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-pds">'</span></span>
+
+    <span class="pl-k">for</span> p <span class="pl-k">in</span> report_text:
+        text<span class="pl-k">+=</span>p.get_text()
+        text<span class="pl-k">+=</span><span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\n</span><span class="pl-pds">'</span></span>
+    <span class="pl-k">return</span> text
+<span class="pl-c">#这个函数返回的就是政府工作报告的内容了。</span></pre></div>
+
+<p>然后就是统计词频，排名后输出前十了（需要用到<code>Counter</code>函数）：</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-k">def</span> <span class="pl-en">word_frequency</span>(<span class="pl-smi">text</span>):
+    <span class="pl-k">from</span> collections <span class="pl-k">import</span> Counter
+    word<span class="pl-k">=</span>[word <span class="pl-k">for</span> word <span class="pl-k">in</span> jieba.cut(text,<span class="pl-v">cut_all</span><span class="pl-k">=</span><span class="pl-c1">True</span>) <span class="pl-k">if</span> <span class="pl-c1">len</span>(word)<span class="pl-k">&gt;=</span><span class="pl-c1">2</span>]
+    <span class="pl-c">#找到长度大于等于2的词</span>
+    c<span class="pl-k">=</span>Counter(word) <span class="pl-c">#数一下。。</span>
+    f <span class="pl-k">=</span> <span class="pl-c1">open</span>(<span class="pl-s"><span class="pl-pds">'</span>shuju.txt<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>w<span class="pl-pds">'</span></span>)
+    f.write(<span class="pl-c1">str</span>(c.most_common(<span class="pl-c1">10</span>)).decode(<span class="pl-s"><span class="pl-pds">'</span>unicode_escape<span class="pl-pds">'</span></span>).encode(<span class="pl-s"><span class="pl-pds">'</span>utf-8<span class="pl-pds">'</span></span>))
+    f.close()
+    <span class="pl-c">#可以把结果输出到一个文本文件里，记得编码，否则又乱码。。</span>
+
+    <span class="pl-k">for</span> word_freq <span class="pl-k">in</span> c.most_common(<span class="pl-c1">10</span>):
+        word,freq<span class="pl-k">=</span>word_freq
+        <span class="pl-c1">print</span> (word, freq)</pre></div>
+
+<div class="highlight highlight-source-python"><pre>url_2016<span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>http://www.gov.cn/flfg/2010-06/21/content_1632796.htm<span class="pl-pds">'</span></span>
+text_2016<span class="pl-k">=</span>extract_text(url_2016)
+word_frequency(text_2016)</pre></div>
+
+<p>这样就能看到结果，不过可以再处理一下：</p>
+
+<div class="highlight highlight-source-python"><pre><span class="pl-c">#-*- coding: utf-8 -*-</span>
+<span class="pl-k">import</span> pandas <span class="pl-k">as</span> pd
+<span class="pl-k">import</span> re
+f<span class="pl-k">=</span><span class="pl-v">file</span>(<span class="pl-s"><span class="pl-pds">'</span>shuju.txt<span class="pl-pds">'</span></span>,<span class="pl-s"><span class="pl-pds">'</span>r<span class="pl-pds">'</span></span>)
+data<span class="pl-k">=</span>f.readlines()
+f.close()
+line<span class="pl-k">=</span>data[<span class="pl-c1">0</span>]
+result1<span class="pl-k">=</span>re.findall(<span class="pl-s"><span class="pl-pds">'</span><span class="pl-cce">\'</span>(.*?)<span class="pl-cce">\'</span><span class="pl-pds">'</span></span>,line,<span class="pl-v">flags</span><span class="pl-k">=</span>re.<span class="pl-c1">IGNORECASE</span>)
+result2<span class="pl-k">=</span>re.findall(<span class="pl-s"><span class="pl-pds">'</span>[0-9]{2,3}<span class="pl-pds">'</span></span>,line)
+data2<span class="pl-k">=</span>pd.DataFrame(result2,<span class="pl-v">index</span><span class="pl-k">=</span><span class="pl-c1">range</span>(<span class="pl-c1">10</span>),<span class="pl-v">columns</span><span class="pl-k">=</span>[<span class="pl-s"><span class="pl-pds">'</span>次数<span class="pl-pds">'</span></span>])
+data2[<span class="pl-s"><span class="pl-pds">'</span>热词<span class="pl-pds">'</span></span>]<span class="pl-k">=</span>pd.Series(result1,<span class="pl-v">index</span><span class="pl-k">=</span><span class="pl-c1">range</span>(<span class="pl-c1">10</span>))
+data2[<span class="pl-s"><span class="pl-pds">'</span>次数<span class="pl-pds">'</span></span>]<span class="pl-k">=</span>data2[<span class="pl-s"><span class="pl-pds">'</span>次数<span class="pl-pds">'</span></span>].astype(<span class="pl-c1">int</span>)
+<span class="pl-c1">print</span> data2</pre></div>
+
+<p><img src="images/hh.png" alt="image"></p>
+
+</div>
+
+  <!-- 以下是需要的尾 -->
+
+
+<hr>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Akuan maintained by <a href="https://github.com/Liubj2016">Liubj2016</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>   
+
+  </body>
+</html>
