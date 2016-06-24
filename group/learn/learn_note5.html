@@ -34,7 +34,6 @@
       <section id="main_content" class="inner">
 <!-- 以上是需要的头 -->
 
-<div id="wiki-body" class="wiki-body gollum-markdown-content instapaper_body">
 <div class="markdown-body">
   <h1>
 <a id="user-content-matlab-project-2蒙特卡洛模拟的美式期权" class="anchor" href="#matlab-project-2%E8%92%99%E7%89%B9%E5%8D%A1%E6%B4%9B%E6%A8%A1%E6%8B%9F%E7%9A%84%E7%BE%8E%E5%BC%8F%E6%9C%9F%E6%9D%83" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>matlab project 2——蒙特卡洛模拟的美式期权</h1>
@@ -98,7 +97,7 @@ d=<span class="pl-k">zeros</span>(M,<span class="pl-c1">1</span>);<span class="p
     s=b(f(:,<span class="pl-k">i</span>)&gt;0);
     p=<span class="pl-k">polyfit</span>(s,W,<span class="pl-c1">2</span>);<span class="pl-c">%p是回归得到的系数</span>
     y(:,<span class="pl-k">i</span>)=<span class="pl-k">polyval</span>(p,b);
-    f(:,<span class="pl-k">i</span>)=f(:,<span class="pl-k">i</span>).*(f(:,<span class="pl-k">i</span>)&gt;y(:,<span class="pl-k">i</span>)*<span class="pl-c1">1</span>);<span class="pl-c">%f矩阵中大于y的留下，小于y的为0</span>
+    f(:,<span class="pl-k">i</span>)=f(:,<span class="pl-k">i</span>).*((f(:,<span class="pl-k">i</span>)&gt;y(:,<span class="pl-k">i</span>))*<span class="pl-c1">1</span>);<span class="pl-c">%f矩阵中大于y的留下，小于y的为0</span>
     d=d+(f(:,<span class="pl-k">i</span>)&gt;0)*<span class="pl-c1">1</span>;
     q=f(:,<span class="pl-k">i</span>);<span class="pl-c">%储存f每一列</span>
     P=P+<span class="pl-k">sum</span>(q(d==<span class="pl-c1">1</span>))*<span class="pl-k">exp</span>(-r*dt*(<span class="pl-k">i</span>-<span class="pl-c1">1</span>));<span class="pl-c">%只取每条路径上第一个大于0的f</span>
@@ -110,7 +109,12 @@ P=(P+<span class="pl-k">sum</span>(q(d==<span class="pl-c1">1</span>))*<span cla
 <span class="pl-k">load</span> handel.mat;
 <span class="pl-k">sound</span>(y)</pre></div>
 
-</div>
+<blockquote>
+<p>由于蒙特卡洛采用的是正向求解的方法，我们无法计算在每个时刻继续持有期权的期望收益，从而无法比较在该时刻立即执行期权的收益与继续持有期权的期望收益，进而无法决定是立即执行期权还是继续持有期权。所以，直到几年前，人们还认为蒙特卡洛方法
+只适合为具有固定执行时间的欧式期权定价，而不适合为美式期权定价。近年来，随着数理金融学的发展，出现了一些运用蒙特卡洛方法模拟美式期权定价的算法。其中，影响最大的是由Longstaff和Schwartz提出的最小二乘蒙特卡洛(LSM)模拟方法，
+该方法已成为目前使用蒙特卡洛模拟美式期权定价的标准方法。 </p>
+</blockquote>
+
 </div>
 
 

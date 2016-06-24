@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Akuan : 面白い人間になりたい">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>python&amp;R</title>
+  </head>
+
+  <body>
+      <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/Liubj2016/Akuan">View on GitHub</a>
+          <div class="clearfix">
+                <ul id="menu" class="drop">
+                    <li><a href="http://liubj2016.github.io/Akuan">Home</a></li>
+                    <li><a>liubaojie2016@163.com</163></a></li>
+                </ul>
+            </div>
+
+          <h1 id="project_title">Akuan</h1>
+          <h2 id="project_tagline">面白い人間になりたい</h2>
+
+            
+        </header>
+    </div>
+
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+<!-- 以上是需要的头 -->
+<div class="markdown-body">
+  <h1>
+<a id="user-content-r-quantmod包" class="anchor" href="#r-quantmod%E5%8C%85" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>R-quantmod包</h1>
+
+<h2>
+<a id="user-content-1获取股票数据" class="anchor" href="#1%E8%8E%B7%E5%8F%96%E8%82%A1%E7%A5%A8%E6%95%B0%E6%8D%AE" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>1.获取股票数据</h2>
+
+<p>1.1 获取上证指数</p>
+
+<div class="highlight highlight-source-r"><pre>getSymbols(<span class="pl-s"><span class="pl-pds">"</span>^SSEC<span class="pl-pds">"</span></span>)</pre></div>
+
+<p>1.2 获取三一重工数据</p>
+
+<div class="highlight highlight-source-r"><pre>setSymbolLookup(<span class="pl-v">SANY.HEAVY</span><span class="pl-k">=</span><span class="pl-k">list</span>(<span class="pl-v">name</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>600030.ss<span class="pl-pds">"</span></span>,<span class="pl-v">src</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>yahoo<span class="pl-pds">"</span></span>))
+getSymbols(<span class="pl-s"><span class="pl-pds">"</span>SANY.HEAVY<span class="pl-pds">"</span></span>)</pre></div>
+
+<h2>
+<a id="user-content-2获取期权交易数据" class="anchor" href="#2%E8%8E%B7%E5%8F%96%E6%9C%9F%E6%9D%83%E4%BA%A4%E6%98%93%E6%95%B0%E6%8D%AE" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>2.获取期权交易数据</h2>
+
+<div class="highlight highlight-source-r"><pre>getSymbols(<span class="pl-s"><span class="pl-pds">"</span>AAPL<span class="pl-pds">"</span></span>)
+options.expiry(<span class="pl-smi">AAPL</span>)
+futures.expiry(<span class="pl-smi">AAPL</span>)
+<span class="pl-smi">AAPL</span>[options.expiry(<span class="pl-smi">AAPL</span>)]</pre></div>
+
+<h2>
+<a id="user-content-3获取汇市数据" class="anchor" href="#3%E8%8E%B7%E5%8F%96%E6%B1%87%E5%B8%82%E6%95%B0%E6%8D%AE" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>3.获取汇市数据</h2>
+
+<div class="highlight highlight-source-r"><pre>getFX(<span class="pl-s"><span class="pl-pds">"</span>USD/JPY<span class="pl-pds">"</span></span>)</pre></div>
+
+<h2>
+<a id="user-content-4获取重金属交易数据" class="anchor" href="#4%E8%8E%B7%E5%8F%96%E9%87%8D%E9%87%91%E5%B1%9E%E4%BA%A4%E6%98%93%E6%95%B0%E6%8D%AE" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>4.获取重金属交易数据</h2>
+
+<div class="highlight highlight-source-r"><pre>getFX(c(<span class="pl-s"><span class="pl-pds">"</span>gold<span class="pl-pds">"</span></span>,<span class="pl-s"><span class="pl-pds">"</span>XPD<span class="pl-pds">"</span></span>))</pre></div>
+
+<h2>
+<a id="user-content-5获取美联储经济数据" class="anchor" href="#5%E8%8E%B7%E5%8F%96%E7%BE%8E%E8%81%94%E5%82%A8%E7%BB%8F%E6%B5%8E%E6%95%B0%E6%8D%AE" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>5.获取美联储经济数据</h2>
+
+<div class="highlight highlight-source-r"><pre>getSymbols(<span class="pl-s"><span class="pl-pds">'</span>CPIAUCNS<span class="pl-pds">'</span></span>,<span class="pl-v">src</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">'</span>FRED<span class="pl-pds">'</span></span>)</pre></div>
+
+<h1>
+<a id="user-content-提取数据的函数" class="anchor" href="#%E6%8F%90%E5%8F%96%E6%95%B0%E6%8D%AE%E7%9A%84%E5%87%BD%E6%95%B0" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>提取数据的函数</h1>
+
+<ul>
+<li>Op(x):提取开盘价</li>
+<li>Hi(x):提取最高价</li>
+<li>Lo(x):提取最低价</li>
+<li>Cl(x):提取收盘价</li>
+<li>Vo(x):提取交易量</li>
+<li>Ad(x):提取调整价格</li>
+<li>HLC(x):提取最高价、最低价和收盘价</li>
+<li>OHLC(x):提取开盘价、最高、最低和收盘价</li>
+</ul>
+
+<h1>
+<a id="user-content-操作函数" class="anchor" href="#%E6%93%8D%E4%BD%9C%E5%87%BD%E6%95%B0" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>操作函数</h1>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-smi">Stock.Open</span> <span class="pl-k">&lt;-</span> c(<span class="pl-c1">102.25</span>,<span class="pl-c1">102.87</span>,<span class="pl-c1">102.25</span>,<span class="pl-c1">100.87</span>,<span class="pl-c1">103.44</span>,<span class="pl-c1">103.87</span>,<span class="pl-c1">103.00</span>)
+<span class="pl-smi">Stock.Close</span> <span class="pl-k">&lt;-</span> c(<span class="pl-c1">102.12</span>,<span class="pl-c1">102.62</span>,<span class="pl-c1">100.12</span>,<span class="pl-c1">103.00</span>,<span class="pl-c1">103.87</span>,<span class="pl-c1">103.12</span>,<span class="pl-c1">105.12</span>)
+<span class="pl-c">#以开盘价计算收益率</span>
+Delt(<span class="pl-smi">Stock.Open</span>)
+<span class="pl-c">#计算开盘价和下一期收盘价的差</span>
+Delt(<span class="pl-smi">Stock.Open</span>,<span class="pl-smi">Stock.Close</span>,<span class="pl-c1">1</span>)</pre></div>
+
+<ul>
+<li>OpCl(x):等同于Delt(Op(x), Cl(x))</li>
+<li>ClCl(x):等同于Delt(Cl(x))</li>
+<li>HiCl(x):等同于Delt(Hi(x),Cl(x))</li>
+<li>LoCl(x):等同于Delt(Lo(x),Cl(x))</li>
+<li>LoHi(x):等同于Delt(Lo(x),Hi(x))</li>
+<li>OpHi(x):等同于Delt(Op(x),Hi(x))</li>
+<li>OpLo(x):等同于Delt(OP(x),Lo(x))</li>
+<li>OpOp(x):等同于Delt(Op(x))</li>
+</ul>
+
+<h1>
+<a id="user-content-计算收益率" class="anchor" href="#%E8%AE%A1%E7%AE%97%E6%94%B6%E7%9B%8A%E7%8E%87" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>计算收益率</h1>
+
+<div class="highlight highlight-source-r"><pre>dailyReturn(<span class="pl-smi">x</span>)
+weeklyReturn(<span class="pl-smi">x</span>)
+monthlyReturn(<span class="pl-smi">x</span>)
+quarterlyReturn(<span class="pl-smi">x</span>)</pre></div>
+
+<h1>
+<a id="user-content-画图" class="anchor" href="#%E7%94%BB%E5%9B%BE" aria-hidden="true"><svg aria-hidden="true" class="octicon octicon-link" height="16" version="1.1" viewBox="0 0 16 16" width="16"><path d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>画图</h1>
+
+<div class="highlight highlight-source-r"><pre><span class="pl-c">#主图</span>
+chartSeries(<span class="pl-smi">x</span>)
+<span class="pl-c">#条形图</span>
+barChart(<span class="pl-smi">CHL</span>)
+<span class="pl-c">#蜡烛图</span>
+candleChart(<span class="pl-smi">CHL</span>)
+<span class="pl-c">#线图</span>
+lineChart(<span class="pl-smi">CHL</span>)</pre></div>
+
+</div>
+
+ <!-- 以下是需要的尾 -->
+
+
+<hr>
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Akuan maintained by <a href="https://github.com/Liubj2016">Liubj2016</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>   
+
+  </body>
+</html>
